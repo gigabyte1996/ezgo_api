@@ -7,7 +7,6 @@ public class Steamer {
     private int steamerNumber;
     private int steamerType;
     private boolean airCondition;
-    private boolean pantryCar;
     private List<Seat> seatList;
 
     public String getSteamerID() {
@@ -42,11 +41,19 @@ public class Steamer {
         this.airCondition = airCondition;
     }
 
-    public boolean isPantryCar() {
-        return pantryCar;
+//    public boolean isPantryCar() {
+//        return pantryCar;
+//    }
+//
+//    public void setPantryCar(boolean pantryCar) {
+//        this.pantryCar = pantryCar;
+//    }
+
+    public List<Seat> getSeatList() {
+        return seatList;
     }
 
-    public void setPantryCar(boolean pantryCar) {
-        this.pantryCar = pantryCar;
+    public void setSeatList(List<Seat> seatList) {
+        this.seatList = seatList;
     }
 }

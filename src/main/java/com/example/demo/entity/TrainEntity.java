@@ -12,12 +12,16 @@ public class TrainEntity {
     private String trainID;
 
     @Basic
-    @Column(name = "TrainNumber")
-    private String trainNumber;
+    @Column(name = "TrainName")
+    private String trainName;
 
     @Basic
     @Column(name = "TrainType")
     private int trainType;
+
+    @Basic
+    @Column(name = "PantryCar")
+    private boolean pantryCar;
 
 
     @OneToMany(mappedBy = "trainEntity", cascade = CascadeType.ALL)
@@ -34,12 +38,12 @@ public class TrainEntity {
         this.trainID = trainID;
     }
 
-    public String getTrainNumber() {
-        return trainNumber;
+    public String getTrainName() {
+        return trainName;
     }
 
-    public void setTrainNumber(String trainNumber) {
-        this.trainNumber = trainNumber;
+    public void setTrainName(String trainName) {
+        this.trainName = trainName;
     }
 
     public int getTrainType() {
@@ -64,5 +68,13 @@ public class TrainEntity {
 
     public void setTrainScheduleEntities(List<TrainScheduleEntity> trainScheduleEntities) {
         this.trainScheduleEntities = trainScheduleEntities;
+    }
+
+    public boolean isPantryCar() {
+        return pantryCar;
+    }
+
+    public void setPantryCar(boolean pantryCar) {
+        this.pantryCar = pantryCar;
     }
 }

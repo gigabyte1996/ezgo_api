@@ -19,17 +19,17 @@ public class TrainController {
 
     @PostMapping("train/search")
     public ResponseEntity searchTrain(@RequestBody TrainRequest requestTrain){
-        return new ResponseEntity(trainService.searchTrain(requestTrain), HttpStatus.OK);
+        return new ResponseEntity<>(trainService.searchTrain(requestTrain), HttpStatus.OK);
     }
 
     @PostMapping("train/diagram")
-    public ResponseEntity getTrainDiagrambyTrainId(@RequestBody TestTrain testTrain){
-        return new ResponseEntity(trainService.getTrainDiagrambyTrainId(testTrain.getId()), HttpStatus.OK);
+    public ResponseEntity getTrainDiagrambyTrainId(@RequestBody String trainID){
+        return new ResponseEntity<>(trainService.getTrainDiagrambyTrainId(trainID), HttpStatus.OK);
     }
 
     @PostMapping("train/filter")
     public ResponseEntity getTrainByFilter(@RequestBody FilterRequest filterRequest){
-        return new ResponseEntity(trainService.getTrainByFilter(filterRequest), HttpStatus.OK );
+        return new ResponseEntity<>(trainService.getTrainByFilter(filterRequest), HttpStatus.OK );
 
     }
 }

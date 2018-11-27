@@ -16,6 +16,8 @@ public class StationController {
 
     @GetMapping("station")
     public ResponseEntity getListStation(){
-        return new ResponseEntity(stationService.getListStation(), HttpStatus.OK);
+        return new ResponseEntity<>(stationService.getListStation(), HttpStatus.OK);
     }
+
+
 }

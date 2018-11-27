@@ -8,7 +8,7 @@ import java.util.List;
 public class SeatEntity {
     @Id
     @Column(name = "SeatID")
-    private String seatID;
+    private int seatID;
 
     @Basic
     @Column(name = "SeatNumber")
@@ -29,12 +29,28 @@ public class SeatEntity {
     @OneToMany(mappedBy = "seatEntity", cascade = CascadeType.ALL)
     List<TicketEntity> ticketEntities;
 
-    public String getSeatID() {
+    public int getSeatID() {
         return seatID;
     }
 
-    public void setSeatID(String seatID) {
+    public void setSeatID(int seatID) {
         this.seatID = seatID;
+    }
+
+    public SteamerEntity getSteamerEntity() {
+        return steamerEntity;
+    }
+
+    public void setSteamerEntity(SteamerEntity steamerEntity) {
+        this.steamerEntity = steamerEntity;
+    }
+
+    public List<TicketEntity> getTicketEntities() {
+        return ticketEntities;
+    }
+
+    public void setTicketEntities(List<TicketEntity> ticketEntities) {
+        this.ticketEntities = ticketEntities;
     }
 
     public int getSeatNumber() {

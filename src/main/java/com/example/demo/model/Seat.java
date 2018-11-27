@@ -1,16 +1,16 @@
 package com.example.demo.model;
 
 public class Seat {
-    private String seatID;
+    private int seatID;
     private int seatNumber;
     private int seatType;
     private int seatStatus;
 
-    public String getSeatID() {
+    public int getSeatID() {
         return seatID;
     }
 
-    public void setSeatID(String seatID) {
+    public void setSeatID(int seatID) {
         this.seatID = seatID;
     }
 

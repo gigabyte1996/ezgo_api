@@ -20,10 +20,6 @@ public class SteamerEntity {
     private int steamerType;
 
     @Basic
-    @Column(name = "PantryCar")
-    private boolean pantryCar;
-
-    @Basic
     @Column(name = "AirCondition")
     private boolean airCondition;
 
@@ -57,14 +53,6 @@ public class SteamerEntity {
 
     public void setSteamerType(int steamerType) {
         this.steamerType = steamerType;
-    }
-
-    public boolean isPantryCar() {
-        return pantryCar;
-    }
-
-    public void setPantryCar(boolean pantryCar) {
-        this.pantryCar = pantryCar;
     }
 
     public boolean isAirCondition() {

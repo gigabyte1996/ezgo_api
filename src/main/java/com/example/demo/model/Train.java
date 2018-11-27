@@ -4,11 +4,14 @@ public class Train {
     private String trainID;
     private String trainName;
     private int trainType;
+    private boolean pantryCar;
 
-    public Train(String trainID, String trainName, int trainType) {
+    public Train(String trainID, String trainName, int trainType, boolean pantryCar) {
         this.trainID = trainID;
         this.trainName = trainName;
         this.trainType = trainType;
+        this.pantryCar = pantryCar;
+
     }
 
     public Train() {
@@ -38,5 +41,21 @@ public class Train {
 
     public void setTrainType(int trainType) {
         this.trainType = trainType;
+    }
+
+    public String getTrainName() {
+        return trainName;
+    }
+
+    public void setTrainName(String trainName) {
+        this.trainName = trainName;
+    }
+
+    public boolean isPantryCar() {
+        return pantryCar;
+    }
+
+    public void setPantryCar(boolean pantryCar) {
+        this.pantryCar = pantryCar;
     }
 }
