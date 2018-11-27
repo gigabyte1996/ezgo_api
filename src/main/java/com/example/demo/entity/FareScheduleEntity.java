@@ -8,8 +8,9 @@ import java.util.List;
 public class FareScheduleEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FareScheduleID")
-    private String fareScheduleID;
+    private Integer fareScheduleID;
 
     @ManyToOne
     @JoinColumn(name = "FromStationID", nullable = true)
@@ -70,11 +71,11 @@ public class FareScheduleEntity {
         this.scheduleTypeEntity = scheduleTypeEntity;
     }
 
-    public String getFareScheduleID() {
+    public Integer getFareScheduleID() {
         return fareScheduleID;
     }
 
-    public void setFareScheduleID(String fareScheduleID) {
+    public void setFareScheduleID(Integer fareScheduleID) {
         this.fareScheduleID = fareScheduleID;
     }
 

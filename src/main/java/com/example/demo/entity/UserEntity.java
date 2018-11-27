@@ -8,8 +8,9 @@ import java.util.List;
 @Table(name = "user")
 public class UserEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
-    private String userID;
+    private Integer userID;
 
     @Basic
     @Column(name = "username")
@@ -62,11 +63,11 @@ public class UserEntity {
     private List<CustomerEntity> customerEntities;
 
 
-    public String getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 

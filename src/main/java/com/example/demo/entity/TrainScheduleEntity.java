@@ -10,8 +10,9 @@ import java.util.List;
 @Table(name = "TrainSchedule")
 public class TrainScheduleEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TrainScheduleID")
-    private String trainScheduleID;
+    private Integer trainScheduleID;
 
     @Basic
     @Column(name = "ScheduleTypeCode")
@@ -60,11 +61,11 @@ public class TrainScheduleEntity {
         this.stationPerJourneyEntities = stationPerJourneyEntities;
     }
 
-    public String getTrainScheduleID() {
+    public Integer getTrainScheduleID() {
         return trainScheduleID;
     }
 
-    public void setTrainScheduleID(String trainScheduleID) {
+    public void setTrainScheduleID(Integer trainScheduleID) {
         this.trainScheduleID = trainScheduleID;
     }
 

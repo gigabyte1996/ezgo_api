@@ -7,8 +7,9 @@ import java.util.List;
 @Table(name = "ScheduleType")
 public class ScheduleTypeEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "scheduleTypeID")
-    private int scheduleTypeID;
+    private Integer scheduleTypeID;
 
     @Basic
     @Column(name = "scheduleTypeName")

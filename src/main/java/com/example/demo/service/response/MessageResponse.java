@@ -1,14 +1,14 @@
 package com.example.demo.service.response;
 
 public class MessageResponse {
-    private int code;
+    private Integer code;
     private String description;
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
@@ -20,7 +20,7 @@ public class MessageResponse {
         this.description = description;
     }
 
-    public MessageResponse(int code, String description) {
+    public MessageResponse(Integer code, String description) {
 
         this.code = code;
         this.description = description;

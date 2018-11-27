@@ -1,14 +1,14 @@
 package com.example.demo.model;
 
 public class Station {
-    private int stationID;
+    private Integer stationID;
     private String stationName;
 
-    public int getStationID() {
+    public Integer getStationID() {
         return stationID;
     }
 
-    public void setStationID(int stationID) {
+    public void setStationID(Integer stationID) {
         this.stationID = stationID;
     }
 

@@ -5,17 +5,17 @@ import com.example.demo.model.Steamer;
 import java.util.List;
 
 public class TrainDetailResponse {
-    private String trainID;
+    private Integer trainID;
     private String trainName;
-    private int trainType;
+    private Integer trainType;
     private List<Steamer> steamerList;
     private MessageResponse error;
 
-    public String getTrainID() {
+    public Integer getTrainID() {
         return trainID;
     }
 
-    public void setTrainID(String trainID) {
+    public void setTrainID(Integer trainID) {
         this.trainID = trainID;
     }
 
@@ -27,11 +27,11 @@ public class TrainDetailResponse {
         this.trainName = trainName;
     }
 
-    public int getTrainType() {
+    public Integer getTrainType() {
         return trainType;
     }
 
-    public void setTrainType(int trainType) {
+    public void setTrainType(Integer trainType) {
         this.trainType = trainType;
     }
 
@@ -53,7 +53,7 @@ public class TrainDetailResponse {
         this.error = error;
     }
 
-    public TrainDetailResponse(String trainID, String trainName, int trainType, List<Steamer> steamerList, MessageResponse error) {
+    public TrainDetailResponse(Integer trainID, String trainName, Integer trainType, List<Steamer> steamerList, MessageResponse error) {
         this.trainID = trainID;
         this.trainName = trainName;
         this.trainType = trainType;

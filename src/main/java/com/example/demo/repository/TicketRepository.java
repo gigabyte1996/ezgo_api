@@ -10,5 +10,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface TicketRepository extends CrudRepository<TicketEntity, Integer> {
-    FareScheduleEntity findTicketEntityById(String id);
+    FareScheduleEntity findTicketEntityById(Integer id);
 }

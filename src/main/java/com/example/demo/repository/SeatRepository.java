@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface SeatRepository extends CrudRepository<SeatEntity, Integer> {
-    List<SeatEntity> findSeatEntitiesBySteamerEntity_SteamerID(String string);
+    List<SeatEntity> findSeatEntitiesBySteamerEntity_SteamerID(Integer id);
 
 }

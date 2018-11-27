@@ -8,8 +8,9 @@ import java.util.List;
 public class SteamerEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SteamerID")
-    private String steamerID;
+    private Integer steamerID;
 
     @Basic
     @Column(name = "SteamerNumber")
@@ -31,11 +32,11 @@ public class SteamerEntity {
     private TrainEntity trainEntity;
 
 
-    public String getSteamerID() {
+    public Integer getSteamerID() {
         return steamerID;
     }
 
-    public void setSteamerID(String steamerID) {
+    public void setSteamerID(Integer steamerID) {
         this.steamerID = steamerID;
     }
 

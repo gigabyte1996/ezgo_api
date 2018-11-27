@@ -3,7 +3,7 @@ package com.example.demo.model;
 import java.util.Date;
 
 public class User {
-    private String UserID;
+    private Integer UserID;
     private String username;
     private String password;
     private  String mail;
@@ -19,7 +19,7 @@ public class User {
     public User() {
     }
 
-    public User(String userID, String username, String password, String mail, String fullname, Boolean gender, String activated, String statusID, String firstName, String lastName, String email, String avaImageURL, String phoneNumber, Date dateOfBirth) {
+    public User(Integer userID, String username, String password, String mail, String fullname, Boolean gender, String activated, String statusID, String firstName, String lastName, String email, String avaImageURL, String phoneNumber, Date dateOfBirth) {
         UserID = userID;
         this.username = username;
         this.password = password;
@@ -34,11 +34,11 @@ public class User {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getUserID() {
+    public Integer getUserID() {
         return UserID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(Integer userID) {
         UserID = userID;
     }
 

@@ -8,8 +8,9 @@ import java.util.List;
 public class TrainEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TrainID")
-    private String trainID;
+    private Integer trainID;
 
     @Basic
     @Column(name = "TrainName")
@@ -30,11 +31,11 @@ public class TrainEntity {
     @OneToMany(mappedBy = "trainEntity", cascade = CascadeType.ALL)
     private List<TrainScheduleEntity> trainScheduleEntities;
 
-    public String getTrainID() {
+    public Integer getTrainID() {
         return trainID;
     }
 
-    public void setTrainID(String trainID) {
+    public void setTrainID(Integer trainID) {
         this.trainID = trainID;
     }
 

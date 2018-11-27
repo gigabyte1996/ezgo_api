@@ -33,7 +33,6 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Override
     public TicketResponse createTicket(TicketRequest ticketRequest) {
         TicketResponse ticketResponse = new TicketResponse();
@@ -67,7 +66,7 @@ public class TicketServiceImpl implements TicketService {
 
     private String createTicketCode(TicketEntity ticketEntity) {
         String userID = parseTicketEntityToTicketModel(ticketEntity).getUserID();
-        String ticketID = parseTicketEntityToTicketModel(ticketEntity).getTicketID();
+        Integer ticketID = parseTicketEntityToTicketModel(ticketEntity).getTicketID();
         String fromStation = parseTicketEntityToTicketModel(ticketEntity).getFromStation();
         String toStation = parseTicketEntityToTicketModel(ticketEntity).getToStation();
         String passengerName = parseTicketEntityToTicketModel(ticketEntity).getPassengerName();
@@ -78,7 +77,7 @@ public class TicketServiceImpl implements TicketService {
     private TicketEntity parseTicketModelToTicketEntity(Ticket ticket) {
         TicketEntity ticketEntity = new TicketEntity();
 
-        ticketEntity.setId(ticket.getTicketID());
+//        ticketEntity.setId(ticket.getTicketID());
         ticketEntity.setFareScheduleEntity(ticketRepository.findTicketEntityById(ticket.getTicketID()));
         ticketEntity.setFromStation(ticket.getFromStation());
         ticketEntity.setToStation(ticket.getToStation());

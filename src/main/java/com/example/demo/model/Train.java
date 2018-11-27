@@ -1,12 +1,12 @@
 package com.example.demo.model;
 
 public class Train {
-    private String trainID;
+    private Integer trainID;
     private String trainName;
     private int trainType;
     private boolean pantryCar;
 
-    public Train(String trainID, String trainName, int trainType, boolean pantryCar) {
+    public Train(Integer trainID, String trainName, int trainType, boolean pantryCar) {
         this.trainID = trainID;
         this.trainName = trainName;
         this.trainType = trainType;
@@ -18,12 +18,12 @@ public class Train {
         super();
     }
 
-    public String getTrainID() {
+    public Integer getTrainID() {
 
         return trainID;
     }
 
-    public void setTrainID(String trainID) {
+    public void setTrainID(Integer trainID) {
         this.trainID = trainID;
     }
 

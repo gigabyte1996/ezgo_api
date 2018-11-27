@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.model.Ticket;
 import com.example.demo.model.TicketRequest;
 import com.example.demo.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,4 @@ public class TicketController {
     public ResponseEntity CreateTicket(@RequestBody TicketRequest ticketRequest){
         return  new ResponseEntity<>(ticketService.createTicket(ticketRequest), HttpStatus.CREATED);
     }
-
-
 }

@@ -1,16 +1,16 @@
 package com.example.demo.model;
 
 public class SeatType {
-    private int hardSeat;
-    private int softSeat;
-    private int extraSeat;
-    private int hardBedFirstFloor;
-    private int hardBedSecondFloor;
-    private int hardBedThirdFloor;
-    private int softBedFirstFloor;
-    private int softBedSecondFloor;
+    private Integer hardSeat;
+    private Integer softSeat;
+    private Integer extraSeat;
+    private Integer hardBedFirstFloor;
+    private Integer hardBedSecondFloor;
+    private Integer hardBedThirdFloor;
+    private Integer softBedFirstFloor;
+    private Integer softBedSecondFloor;
 
-    public SeatType(int hardSeat, int softSeat, int extraSeat, int hardBedFirstFloor, int hardBedSecondFloor, int hardBedThirdFloor, int softBedFirstFloor, int softBedSecondFloor) {
+    public SeatType(Integer hardSeat, Integer softSeat, Integer extraSeat, Integer hardBedFirstFloor, Integer hardBedSecondFloor, Integer hardBedThirdFloor, Integer softBedFirstFloor, Integer softBedSecondFloor) {
         this.hardSeat = hardSeat;
         this.softSeat = softSeat;
         this.extraSeat = extraSeat;
@@ -25,67 +25,67 @@ public class SeatType {
         super();
     }
 
-    public int getHardSeat() {
+    public Integer getHardSeat() {
         return hardSeat;
     }
 
-    public void setHardSeat(int hardSeat) {
+    public void setHardSeat(Integer hardSeat) {
         this.hardSeat = hardSeat;
     }
 
-    public int getSoftSeat() {
+    public Integer getSoftSeat() {
         return softSeat;
     }
 
-    public void setSoftSeat(int softSeat) {
+    public void setSoftSeat(Integer softSeat) {
         this.softSeat = softSeat;
     }
 
-    public int getExtraSeat() {
+    public Integer getExtraSeat() {
         return extraSeat;
     }
 
-    public void setExtraSeat(int extraSeat) {
+    public void setExtraSeat(Integer extraSeat) {
         this.extraSeat = extraSeat;
     }
 
-    public int getHardBedFirstFloor() {
+    public Integer getHardBedFirstFloor() {
         return hardBedFirstFloor;
     }
 
-    public void setHardBedFirstFloor(int hardBedFirstFloor) {
+    public void setHardBedFirstFloor(Integer hardBedFirstFloor) {
         this.hardBedFirstFloor = hardBedFirstFloor;
     }
 
-    public int getHardBedSecondFloor() {
+    public Integer getHardBedSecondFloor() {
         return hardBedSecondFloor;
     }
 
-    public void setHardBedSecondFloor(int hardBedSecondFloor) {
+    public void setHardBedSecondFloor(Integer hardBedSecondFloor) {
         this.hardBedSecondFloor = hardBedSecondFloor;
     }
 
-    public int getHardBedThirdFloor() {
+    public Integer getHardBedThirdFloor() {
         return hardBedThirdFloor;
     }
 
-    public void setHardBedThirdFloor(int hardBedThirdFloor) {
+    public void setHardBedThirdFloor(Integer hardBedThirdFloor) {
         this.hardBedThirdFloor = hardBedThirdFloor;
     }
 
-    public int getSoftBedFirstFloor() {
+    public Integer getSoftBedFirstFloor() {
         return softBedFirstFloor;
     }
 
-    public void setSoftBedFirstFloor(int softBedFirstFloor) {
+    public void setSoftBedFirstFloor(Integer softBedFirstFloor) {
         this.softBedFirstFloor = softBedFirstFloor;
     }
 
-    public int getSoftBedSecondFloor() {
+    public Integer getSoftBedSecondFloor() {
         return softBedSecondFloor;
     }
 
-    public void setSoftBedSecondFloor(int softBedSecondFloor) {
+    public void setSoftBedSecondFloor(Integer softBedSecondFloor) {
         this.softBedSecondFloor = softBedSecondFloor;
     }
 }

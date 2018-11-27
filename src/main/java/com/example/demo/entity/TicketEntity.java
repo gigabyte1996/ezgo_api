@@ -6,8 +6,9 @@ import javax.persistence.*;
 @Table(name = "ticket")
 public class TicketEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TicketID")
-    private String id;
+    private Integer id;
 
     @Basic
     @Column(name = "fromStation")
@@ -85,11 +86,11 @@ public class TicketEntity {
         this.fareScheduleEntity = fareScheduleEntity;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -224,8 +225,7 @@ public class TicketEntity {
     public TicketEntity() {
     }
 
-    public TicketEntity(String id, String fromStation, String toStation, String scheduleTypeCode, String trainCode, String seatCode, String steamerCode, String singOrReTurn, Long fare, String passengerName, String email, String phoneNumber, String identificationNumber, int age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity) {
-        this.id = id;
+    public TicketEntity(String fromStation, String toStation, String scheduleTypeCode, String trainCode, String seatCode, String steamerCode, String singOrReTurn, Long fare, String passengerName, String email, String phoneNumber, String identificationNumber, int age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity) {
         this.fromStation = fromStation;
         this.toStation = toStation;
         this.scheduleTypeCode = scheduleTypeCode;

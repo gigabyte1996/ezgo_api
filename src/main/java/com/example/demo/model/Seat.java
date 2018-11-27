@@ -1,40 +1,40 @@
 package com.example.demo.model;
 
 public class Seat {
-    private int seatID;
-    private int seatNumber;
-    private int seatType;
-    private int seatStatus;
+    private Integer seatID;
+    private Integer seatNumber;
+    private Integer seatType;
+    private Integer seatStatus;
 
-    public int getSeatID() {
+    public Integer getSeatID() {
         return seatID;
     }
 
-    public void setSeatID(int seatID) {
+    public void setSeatID(Integer seatID) {
         this.seatID = seatID;
     }
 
-    public int getSeatNumber() {
+    public Integer getSeatNumber() {
         return seatNumber;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatNumber(Integer seatNumber) {
         this.seatNumber = seatNumber;
     }
 
-    public int getSeatType() {
+    public Integer getSeatType() {
         return seatType;
     }
 
-    public void setSeatType(int seatType) {
+    public void setSeatType(Integer seatType) {
         this.seatType = seatType;
     }
 
-    public int getSeatStatus() {
+    public Integer getSeatStatus() {
         return seatStatus;
     }
 
-    public void setSeatStatus(int seatStatus) {
+    public void setSeatStatus(Integer seatStatus) {
         this.seatStatus = seatStatus;
     }
 }

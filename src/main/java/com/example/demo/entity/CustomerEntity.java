@@ -7,8 +7,9 @@ import javax.persistence.*;
 @Table(name = "CustomerEntity")
 public class CustomerEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CustomerID")
-    private int CustomerID;
+    private Integer CustomerID;
 
     @ManyToOne
     @JoinColumn(name = "userID", nullable = false)

@@ -1,14 +1,14 @@
 package com.example.demo.model;
 
 public class Customer {
-    private int customerID;
-    private String userID;
+    private Integer customerID;
+    private Integer userID;
     private String customerName;
     private String email;
     private String phoneNumber;
     private String identificationNumber;
 
-    public Customer(int customerID, String userID, String customerName, String email, String phoneNumber, String identificationNumber) {
+    public Customer(Integer customerID, Integer userID, String customerName, String email, String phoneNumber, String identificationNumber) {
         this.customerID = customerID;
         this.userID = userID;
         this.customerName = customerName;
@@ -21,15 +21,15 @@ public class Customer {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 
-    public String getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 

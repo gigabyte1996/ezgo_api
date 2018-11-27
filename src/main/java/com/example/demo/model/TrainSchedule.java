@@ -3,19 +3,19 @@ package com.example.demo.model;
 import java.util.Date;
 
 public class TrainSchedule {
-    private String trainScheduleID;
+    private Integer trainScheduleID;
     private String jouneyName;
     private Date departureTime;
     private Date arrivalTime;
     private String firstStation;
     private String lastStation;
-    private String trainID;
+    private Integer trainID;
 
-    public String getTrainScheduleID() {
+    public Integer getTrainScheduleID() {
         return trainScheduleID;
     }
 
-    public void setTrainScheduleID(String trainScheduleID) {
+    public void setTrainScheduleID(Integer trainScheduleID) {
         this.trainScheduleID = trainScheduleID;
     }
 
@@ -59,11 +59,11 @@ public class TrainSchedule {
         this.lastStation = lastStation;
     }
 
-    public String getTrainID() {
+    public Integer getTrainID() {
         return trainID;
     }
 
-    public void setTrainID(String trainID) {
+    public void setTrainID(Integer trainID) {
         this.trainID = trainID;
     }
 }

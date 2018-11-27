@@ -7,8 +7,9 @@ import java.util.List;
 @Table(name = "seats")
 public class SeatEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SeatID")
-    private int seatID;
+    private Integer seatID;
 
     @Basic
     @Column(name = "SeatNumber")
@@ -29,11 +30,11 @@ public class SeatEntity {
     @OneToMany(mappedBy = "seatEntity", cascade = CascadeType.ALL)
     List<TicketEntity> ticketEntities;
 
-    public int getSeatID() {
+    public Integer getSeatID() {
         return seatID;
     }
 
-    public void setSeatID(int seatID) {
+    public void setSeatID(Integer seatID) {
         this.seatID = seatID;
     }
 

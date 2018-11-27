@@ -8,8 +8,9 @@ import java.util.List;
 public class StationEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "StationID")
-    private int stationID;
+    private Integer stationID;
 
     @Basic
     @Column(name = "StationName")
@@ -38,11 +39,11 @@ public class StationEntity {
         this.stationPerJourneyEntities = stationPerJourneyEntities;
     }
 
-    public int getStationID() {
+    public Integer getStationID() {
         return stationID;
     }
 
-    public void setStationID(int stationID) {
+    public void setStationID(Integer stationID) {
         this.stationID = stationID;
     }
 

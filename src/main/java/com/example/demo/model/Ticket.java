@@ -3,9 +3,9 @@ package com.example.demo.model;
 import java.util.Date;
 
 public class Ticket {
-    private String ticketID;
+    private Integer ticketID;
     private String userID;
-    private String fareScheduleID;
+    private Integer fareScheduleID;
     private String FromStation;
     private String toStation;
     private String scheduleTypeCode;
@@ -24,19 +24,19 @@ public class Ticket {
 
     }
 
-    public String getTicketID() {
+    public Integer getTicketID() {
         return ticketID;
     }
 
-    public void setTicketID(String ticketID) {
+    public void setTicketID(Integer ticketID) {
         this.ticketID = ticketID;
     }
 
-    public String getFareScheduleID() {
+    public Integer getFareScheduleID() {
         return fareScheduleID;
     }
 
-    public void setFareScheduleID(String fareScheduleID) {
+    public void setFareScheduleID(Integer fareScheduleID) {
         this.fareScheduleID = fareScheduleID;
     }
 
@@ -152,7 +152,7 @@ public class Ticket {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Ticket(String ticketID, String userID, String fareScheduleID, String fromStation, String toStation, String scheduleTypeCode, String trainCode, String seatCode, String steamerCode, String singleOrReturn, Long fare, String passengerName, String identificationNumber, Date dateOfBirth, int age, String ticketCode) {
+    public Ticket(Integer ticketID, String userID, Integer fareScheduleID, String fromStation, String toStation, String scheduleTypeCode, String trainCode, String seatCode, String steamerCode, String singleOrReturn, Long fare, String passengerName, String identificationNumber, Date dateOfBirth, int age, String ticketCode) {
         this.ticketID = ticketID;
         this.userID = userID;
         this.fareScheduleID = fareScheduleID;
