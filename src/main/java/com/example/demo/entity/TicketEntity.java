@@ -204,4 +204,44 @@ public class TicketEntity {
     public void setTicketCode(String ticketCode) {
         this.ticketCode = ticketCode;
     }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
+    }
+
+    public SeatEntity getSeatEntity() {
+        return seatEntity;
+    }
+
+    public void setSeatEntity(SeatEntity seatEntity) {
+        this.seatEntity = seatEntity;
+    }
+
+    public TicketEntity() {
+    }
+
+    public TicketEntity(String id, String fromStation, String toStation, String scheduleTypeCode, String trainCode, String seatCode, String steamerCode, String singOrReTurn, Long fare, String passengerName, String email, String phoneNumber, String identificationNumber, int age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity) {
+        this.id = id;
+        this.fromStation = fromStation;
+        this.toStation = toStation;
+        this.scheduleTypeCode = scheduleTypeCode;
+        this.trainCode = trainCode;
+        this.seatCode = seatCode;
+        this.steamerCode = steamerCode;
+        this.singOrReTurn = singOrReTurn;
+        this.fare = fare;
+        this.passengerName = passengerName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.identificationNumber = identificationNumber;
+        this.age = age;
+        this.ticketCode = ticketCode;
+        this.userEntity = userEntity;
+        this.seatEntity = seatEntity;
+        this.fareScheduleEntity = fareScheduleEntity;
+    }
 }

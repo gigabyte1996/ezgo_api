@@ -58,6 +58,10 @@ public class UserEntity {
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private List<TicketEntity> ticketEntities;
 
+    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+    private List<CustomerEntity> customerEntities;
+
+
     public String getUserID() {
         return userID;
     }
@@ -96,5 +100,77 @@ public class UserEntity {
 
     public void setStatusID(String statusID) {
         this.statusID = statusID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvaImageURL() {
+        return avaImageURL;
+    }
+
+    public void setAvaImageURL(String avaImageURL) {
+        this.avaImageURL = avaImageURL;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public List<TicketEntity> getTicketEntities() {
+        return ticketEntities;
+    }
+
+    public void setTicketEntities(List<TicketEntity> ticketEntities) {
+        this.ticketEntities = ticketEntities;
+    }
+
+    public List<CustomerEntity> getCustomerEntities() {
+        return customerEntities;
+    }
+
+    public void setCustomerEntities(List<CustomerEntity> customerEntities) {
+        this.customerEntities = customerEntities;
     }
 }

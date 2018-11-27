@@ -11,4 +11,5 @@ import javax.transaction.Transactional;
 @Transactional
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {
     UserEntity findUserEntityByUsername(String username);
+    UserEntity findUserEntitiesByUserID(String id);
 }

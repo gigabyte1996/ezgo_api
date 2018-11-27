@@ -1,16 +1,20 @@
 package com.example.demo.service.response;
 
+import com.example.demo.model.Ticket;
+
+import java.util.List;
+
 public class TicketResponse {
-    private String ticketID;
-    private String ticketCode;
+
+    private List<TicketDetailResponse> ticketDetailResponses;
     private MessageResponse error;
 
-    public String getTicketID() {
-        return ticketID;
+    public List<TicketDetailResponse> getTicketDetailResponses() {
+        return ticketDetailResponses;
     }
 
-    public void setTicketID(String ticketID) {
-        this.ticketID = ticketID;
+    public void setTicketDetailResponses(List<TicketDetailResponse> ticketDetailResponses) {
+        this.ticketDetailResponses = ticketDetailResponses;
     }
 
     public MessageResponse getError() {
@@ -21,18 +25,12 @@ public class TicketResponse {
         this.error = error;
     }
 
-    public String getTicketCode() {
-        return ticketCode;
-    }
-
-    public void setTicketCode(String ticketCode) {
-        this.ticketCode = ticketCode;
+    public TicketResponse(List<TicketDetailResponse> ticketDetailResponses, MessageResponse error) {
+        this.ticketDetailResponses = ticketDetailResponses;
+        this.error = error;
     }
 
     public TicketResponse() {
-
-        this.ticketID = ticketID;
-        this.error = error;
-        this.ticketCode = getTicketCode();
     }
+
 }
