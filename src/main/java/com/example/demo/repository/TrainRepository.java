@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 @Transactional
 public interface TrainRepository extends CrudRepository<TrainEntity , Integer> {
-    TrainEntity findTrainEntityByTrainID(String id);
+    TrainEntity findTrainEntityByTrainID(Integer id);
 }

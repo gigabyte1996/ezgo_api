@@ -9,7 +9,7 @@ public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CustomerID")
-    private Integer CustomerID;
+    private Integer customerID;
 
     @ManyToOne
     @JoinColumn(name = "userID", nullable = false)
@@ -31,8 +31,10 @@ public class CustomerEntity {
     @Column(name = "IdentificationNumber")
     private String identificationNumber;
 
-    public CustomerEntity(int customerID, UserEntity userEntity, String customerName, String email, String phoneNumber, String identificationNumber) {
-        CustomerID = customerID;
+    public CustomerEntity() {
+    }
+
+    public CustomerEntity(UserEntity userEntity, String customerName, String email, String phoneNumber, String identificationNumber) {
         this.userEntity = userEntity;
         this.customerName = customerName;
         this.email = email;
@@ -40,15 +42,12 @@ public class CustomerEntity {
         this.identificationNumber = identificationNumber;
     }
 
-    public CustomerEntity() {
+    public Integer getCustomerID() {
+        return customerID;
     }
 
-    public int getCustomerID() {
-        return CustomerID;
-    }
-
-    public void setCustomerID(int customerID) {
-        CustomerID = customerID;
+    public void setCustomerID(Integer customerID) {
+        this.customerID = customerID;
     }
 
     public UserEntity getUserEntity() {

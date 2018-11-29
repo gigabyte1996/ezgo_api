@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface SteamerRepository extends CrudRepository<SteamerEntity, Integer> {
-    List<SteamerEntity> findSteamerEntitiesByTrainEntity_TrainID(String id);
+    List<SteamerEntity> findSteamerEntitiesByTrainEntity_TrainID(Integer id);
 
 }

@@ -4,21 +4,20 @@ import java.util.Date;
 
 public class Ticket {
     private Integer ticketID;
-    private String userID;
+    private Integer userID;
     private Integer fareScheduleID;
     private String FromStation;
     private String toStation;
-    private String scheduleTypeCode;
-    private String trainCode;
-    private String seatCode;
-    private String steamerCode;
-    private String singleOrReturn;
+    private Integer scheduleTypeCode;
+    private Integer trainCode;
+    private Integer seatCode;
+    private Integer steamerCode;
+    private Integer singleOrReturn;
     private Long fare;
     private String passengerName;
     private String identificationNumber;
     private Date dateOfBirth;
-    private int age;
-    private String ticketCode;
+    private Integer age;
 
     public Ticket() {
 
@@ -30,6 +29,14 @@ public class Ticket {
 
     public void setTicketID(Integer ticketID) {
         this.ticketID = ticketID;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
 
     public Integer getFareScheduleID() {
@@ -56,43 +63,43 @@ public class Ticket {
         this.toStation = toStation;
     }
 
-    public String getScheduleTypeCode() {
+    public Integer getScheduleTypeCode() {
         return scheduleTypeCode;
     }
 
-    public void setScheduleTypeCode(String scheduleTypeCode) {
+    public void setScheduleTypeCode(Integer scheduleTypeCode) {
         this.scheduleTypeCode = scheduleTypeCode;
     }
 
-    public String getTrainCode() {
+    public Integer getTrainCode() {
         return trainCode;
     }
 
-    public void setTrainCode(String trainCode) {
+    public void setTrainCode(Integer trainCode) {
         this.trainCode = trainCode;
     }
 
-    public String getSeatCode() {
+    public Integer getSeatCode() {
         return seatCode;
     }
 
-    public void setSeatCode(String seatCode) {
+    public void setSeatCode(Integer seatCode) {
         this.seatCode = seatCode;
     }
 
-    public String getSteamerCode() {
+    public Integer getSteamerCode() {
         return steamerCode;
     }
 
-    public void setSteamerCode(String steamerCode) {
+    public void setSteamerCode(Integer steamerCode) {
         this.steamerCode = steamerCode;
     }
 
-    public String getSingleOrReturn() {
+    public Integer getSingleOrReturn() {
         return singleOrReturn;
     }
 
-    public void setSingleOrReturn(String singleOrReturn) {
+    public void setSingleOrReturn(Integer singleOrReturn) {
         this.singleOrReturn = singleOrReturn;
     }
 
@@ -120,30 +127,6 @@ public class Ticket {
         this.identificationNumber = identificationNumber;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getTicketCode() {
-        return ticketCode;
-    }
-
-    public void setTicketCode(String ticketCode) {
-        this.ticketCode = ticketCode;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
-    }
-
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -152,7 +135,15 @@ public class Ticket {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Ticket(Integer ticketID, String userID, Integer fareScheduleID, String fromStation, String toStation, String scheduleTypeCode, String trainCode, String seatCode, String steamerCode, String singleOrReturn, Long fare, String passengerName, String identificationNumber, Date dateOfBirth, int age, String ticketCode) {
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public Ticket(Integer ticketID, Integer userID, Integer fareScheduleID, String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer seatCode, Integer steamerCode, Integer singleOrReturn, Long fare, String passengerName, String identificationNumber, Date dateOfBirth, Integer age) {
         this.ticketID = ticketID;
         this.userID = userID;
         this.fareScheduleID = fareScheduleID;
@@ -168,6 +159,5 @@ public class Ticket {
         this.identificationNumber = identificationNumber;
         this.dateOfBirth = dateOfBirth;
         this.age = age;
-        this.ticketCode = ticketCode;
     }
 }

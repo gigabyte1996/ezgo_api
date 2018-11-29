@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,49 +36,53 @@ public class TrainServiceImpl implements TrainService {
     @Autowired
     private SeatRepository seatRepository;
 
+
     @Override
     public TrainScheduleResponse searchTrain(TrainRequest requestTrain) {
-        List<TrainScheduleEntity> trainScheduleEntities = trainScheduleRepository.findAll();
+        MessageResponse messageResponse = new MessageResponse(0, "Success");
         List<TrainSchedule> trainScheduleList = new ArrayList<>();
-        MessageResponse messageResponse = new MessageResponse(0,"Success");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        for (TrainScheduleEntity item : trainScheduleEntities ){
-            System.out.println(sdf.format(item.getDepartureTime()));
-            System.out.println(sdf.format(requestTrain.getDepartureTime()));
-            if (item.getFirstStation().getStationName().equals(requestTrain.getFromStation())
-                    && item.getLastStation().getStationName().equals(requestTrain.getToStation())
-                    && sdf.format(item.getDepartureTime()).equals(sdf.format(requestTrain.getDepartureTime()))
-                    ){
-                trainScheduleList.add(parseTrainScheduleEntityToTrainSchdeduleModel(item));
-            }
-//            else if (item.getFirstStation().getStationName().equals(requestTrain.getFromStation())
-//                    && item.getLastStation().getStationName().equals(requestTrain.getToStation())
-//                    && sdf.format(item.getDepartureTime()).equals(sdf.format(requestTrain.getDepartureTime()))
-//                    && sdf.format(item.getArrivalTime()).equals(sdf.format(requestTrain.getArrivalTime()))) {
-//            }
+        List<TrainSchedule> trainScheduleList1 = new ArrayList<>();
+        TrainScheduleResponse trainScheduleResponse = new TrainScheduleResponse();
+
+        if (requestTrain.getDepartureTime() == null) {
+
+            trainScheduleList = findSchedule(requestTrain.getToStation(), requestTrain.getFromStation(), requestTrain.getReturnTime());
+            trainScheduleResponse = new TrainScheduleResponse(trainScheduleList, null, messageResponse);
+
+        } else if (requestTrain.getReturnTime() == null) {
+
+            trainScheduleList = findSchedule(requestTrain.getFromStation(), requestTrain.getToStation(), requestTrain.getDepartureTime());
+            trainScheduleResponse = new TrainScheduleResponse(trainScheduleList, null, messageResponse);
+
+        } else {
+
+            trainScheduleList = findSchedule(requestTrain.getFromStation(), requestTrain.getToStation(), requestTrain.getDepartureTime());
+            trainScheduleList1 = findSchedule(requestTrain.getToStation(), requestTrain.getFromStation(), requestTrain.getReturnTime());
+            trainScheduleResponse = new TrainScheduleResponse(trainScheduleList, trainScheduleList1, messageResponse);
+
         }
-        return new TrainScheduleResponse(trainScheduleList, messageResponse);
+        return trainScheduleResponse;
     }
 
     @Override
-    public TrainDetailResponse getTrainDiagrambyTrainId(String id) {
-        id = id.substring(1,id.length()-1);
+    public TrainDetailResponse getTrainDiagrambyTrainId(Integer id) {
+//        id = id.substring(1, id.length() - 1);
         TrainEntity trainEntity = trainRepository.findTrainEntityByTrainID(id);
         List<SteamerEntity> steamerEntities = steamerRepository.findSteamerEntitiesByTrainEntity_TrainID(id);
         List<Steamer> steamers = new ArrayList<>();
         Train train = parseTrainEntityToTrainModel(trainEntity);
-        MessageResponse messageResponse = new MessageResponse(0,"Success");
+        MessageResponse messageResponse = new MessageResponse(0, "Success");
         for (SteamerEntity steamerEntity : steamerEntities) {
-            List<SeatEntity> seatEntities =  seatRepository.findSeatEntitiesBySteamerEntity_SteamerID(steamerEntity.getSteamerID());
+            List<SeatEntity> seatEntities = seatRepository.findSeatEntitiesBySteamerEntity_SteamerID(steamerEntity.getSteamerID());
             List<Seat> seats = new ArrayList<>();
-            for (SeatEntity seatEntity : seatEntities){
+            for (SeatEntity seatEntity : seatEntities) {
                 Seat seat = parseSeatEntityToSeatModel(seatEntity);
                 seats.add(seat);
             }
             Steamer steamer = parseSteamerEntityToSteamerModel(steamerEntity);
             steamers.add(steamer);
         }
-        TrainDetailResponse trainDetailResponse = new TrainDetailResponse(train.getTrainID(), train.getTrainNumber(), train.getTrainType(), steamers,messageResponse  );
+        TrainDetailResponse trainDetailResponse = new TrainDetailResponse(train.getTrainID(), train.getTrainName(), train.getTrainType(), steamers, messageResponse);
         return trainDetailResponse;
     }
 
@@ -88,6 +93,20 @@ public class TrainServiceImpl implements TrainService {
         seat.setSeatType(seatEntity.getSeatType());
         seat.setSeatStatus(seatEntity.getSeatStatus());
         return seat;
+    }
+
+    private List<TrainSchedule> findSchedule(String fromStation, String toStation, Date departuretime) {
+        List<TrainSchedule> trainScheduleList = new ArrayList<>();
+        List<TrainScheduleEntity> trainScheduleEntities = trainScheduleRepository.findAll();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        for (TrainScheduleEntity item : trainScheduleEntities) {
+            if (item.getFirstStation().getStationName().equals(fromStation)
+                    && item.getLastStation().getStationName().equals(toStation)
+                    && sdf.format(item.getDepartureTime()).equals(sdf.format(departuretime))) {
+                trainScheduleList.add(parseTrainScheduleEntityToTrainSchdeduleModel(item));
+            }
+        }
+        return trainScheduleList;
     }
 
     @Override
@@ -106,9 +125,10 @@ public class TrainServiceImpl implements TrainService {
         steamer.setSeatList(parseListSeatEntityToListSeatModel(steamerEntity.getSeatEntities()));
         return steamer;
     }
-    private List<Seat> parseListSeatEntityToListSeatModel(List<SeatEntity> seatEntities){
+
+    private List<Seat> parseListSeatEntityToListSeatModel(List<SeatEntity> seatEntities) {
         List<Seat> seatList = new ArrayList<>();
-        for (SeatEntity seatEntity : seatEntities){
+        for (SeatEntity seatEntity : seatEntities) {
             seatList.add(parseSeatEntityToSeatModel(seatEntity));
         }
         return seatList;
@@ -122,7 +142,7 @@ public class TrainServiceImpl implements TrainService {
         train.setTrainName(trainEntity.getTrainName());
         train.setTrainType(trainEntity.getTrainType());
         train.setPantryCar(trainEntity.isPantryCar());
-        return  train;
+        return train;
     }
 
     private TrainSchedule parseTrainScheduleEntityToTrainSchdeduleModel(TrainScheduleEntity trainScheduleEntity) {
@@ -136,5 +156,6 @@ public class TrainServiceImpl implements TrainService {
         trainSchedule.setTrainID(trainScheduleEntity.getTrainEntity().getTrainID());
         return trainSchedule;
     }
+
 
 }

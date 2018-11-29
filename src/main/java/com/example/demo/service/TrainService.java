@@ -9,7 +9,7 @@ import com.example.demo.service.response.TrainScheduleResponse;
 public interface TrainService {
     TrainScheduleResponse searchTrain(TrainRequest requestTrain);
 
-    TrainDetailResponse getTrainDiagrambyTrainId(String id);
+    TrainDetailResponse getTrainDiagrambyTrainId(Integer id);
 
     TrainScheduleResponse getTrainByFilter(FilterRequest filterRequest);
 }

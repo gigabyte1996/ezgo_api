@@ -20,23 +20,20 @@ public class TicketEntity {
 
     @Basic
     @Column(name = "scheduleTypeCode")
-    private String scheduleTypeCode;
+    private Integer scheduleTypeCode;
 
     @Basic
     @Column(name = "trainCode")
-    private String trainCode;
+    private Integer trainCode;
 
-    @Basic
-    @Column(name = "seatCode")
-    private String seatCode;
 
     @Basic
     @Column(name = "steamerCode")
-    private String steamerCode;
+    private Integer steamerCode;
 
     @Basic
     @Column(name = "singleOrReturn")
-    private String singOrReTurn;
+    private Integer singOrReTurn;
 
     @Basic
     @Column(name = "fare")
@@ -47,20 +44,12 @@ public class TicketEntity {
     private  String passengerName;
 
     @Basic
-    @Column(name = "Email")
-    private String email;
-
-    @Basic
-    @Column(name = "PhoneNumber")
-    private String phoneNumber;
-
-    @Basic
     @Column(name = "IdentificationNumber")
     private String identificationNumber;
 
     @Basic
     @Column(name = "Age")
-    private int age;
+    private Integer age;
 
     @Basic
     @Column(name = "TicketCode")
@@ -78,12 +67,7 @@ public class TicketEntity {
     @JoinColumn(name = "FareScheduleID", nullable = false)
     private FareScheduleEntity fareScheduleEntity;
 
-    public FareScheduleEntity getFareScheduleEntity() {
-        return fareScheduleEntity;
-    }
-
-    public void setFareScheduleEntity(FareScheduleEntity fareScheduleEntity) {
-        this.fareScheduleEntity = fareScheduleEntity;
+    public TicketEntity() {
     }
 
     public Integer getId() {
@@ -110,43 +94,35 @@ public class TicketEntity {
         this.toStation = toStation;
     }
 
-    public String getScheduleTypeCode() {
+    public Integer getScheduleTypeCode() {
         return scheduleTypeCode;
     }
 
-    public void setScheduleTypeCode(String scheduleTypeCode) {
+    public void setScheduleTypeCode(Integer scheduleTypeCode) {
         this.scheduleTypeCode = scheduleTypeCode;
     }
 
-    public String getTrainCode() {
+    public Integer getTrainCode() {
         return trainCode;
     }
 
-    public void setTrainCode(String trainCode) {
+    public void setTrainCode(Integer trainCode) {
         this.trainCode = trainCode;
     }
 
-    public String getSeatCode() {
-        return seatCode;
-    }
-
-    public void setSeatCode(String seatCode) {
-        this.seatCode = seatCode;
-    }
-
-    public String getSteamerCode() {
+    public Integer getSteamerCode() {
         return steamerCode;
     }
 
-    public void setSteamerCode(String steamerCode) {
+    public void setSteamerCode(Integer steamerCode) {
         this.steamerCode = steamerCode;
     }
 
-    public String getSingOrReTurn() {
+    public Integer getSingOrReTurn() {
         return singOrReTurn;
     }
 
-    public void setSingOrReTurn(String singOrReTurn) {
+    public void setSingOrReTurn(Integer singOrReTurn) {
         this.singOrReTurn = singOrReTurn;
     }
 
@@ -166,22 +142,6 @@ public class TicketEntity {
         this.passengerName = passengerName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public String getIdentificationNumber() {
         return identificationNumber;
     }
@@ -190,11 +150,11 @@ public class TicketEntity {
         this.identificationNumber = identificationNumber;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -222,21 +182,24 @@ public class TicketEntity {
         this.seatEntity = seatEntity;
     }
 
-    public TicketEntity() {
+    public FareScheduleEntity getFareScheduleEntity() {
+        return fareScheduleEntity;
     }
 
-    public TicketEntity(String fromStation, String toStation, String scheduleTypeCode, String trainCode, String seatCode, String steamerCode, String singOrReTurn, Long fare, String passengerName, String email, String phoneNumber, String identificationNumber, int age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity) {
+    public void setFareScheduleEntity(FareScheduleEntity fareScheduleEntity) {
+        this.fareScheduleEntity = fareScheduleEntity;
+    }
+
+
+    public TicketEntity(String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer steamerCode, Integer singOrReTurn, Long fare, String passengerName, String identificationNumber, Integer age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity) {
         this.fromStation = fromStation;
         this.toStation = toStation;
         this.scheduleTypeCode = scheduleTypeCode;
         this.trainCode = trainCode;
-        this.seatCode = seatCode;
         this.steamerCode = steamerCode;
         this.singOrReTurn = singOrReTurn;
         this.fare = fare;
         this.passengerName = passengerName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
         this.identificationNumber = identificationNumber;
         this.age = age;
         this.ticketCode = ticketCode;

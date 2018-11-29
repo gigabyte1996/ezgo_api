@@ -3,44 +3,25 @@ package com.example.demo.model;
 public class Train {
     private Integer trainID;
     private String trainName;
-    private int trainType;
+    private Integer trainType;
     private boolean pantryCar;
 
-    public Train(Integer trainID, String trainName, int trainType, boolean pantryCar) {
+    public Train(Integer trainID, String trainName, Integer trainType, boolean pantryCar) {
         this.trainID = trainID;
         this.trainName = trainName;
         this.trainType = trainType;
         this.pantryCar = pantryCar;
-
     }
 
     public Train() {
-        super();
     }
 
     public Integer getTrainID() {
-
         return trainID;
     }
 
     public void setTrainID(Integer trainID) {
         this.trainID = trainID;
-    }
-
-    public String getTrainNumber() {
-        return trainName;
-    }
-
-    public void setTrainNumber(String trainName) {
-        this.trainName = trainName;
-    }
-
-    public int getTrainType() {
-        return trainType;
-    }
-
-    public void setTrainType(int trainType) {
-        this.trainType = trainType;
     }
 
     public String getTrainName() {
@@ -49,6 +30,14 @@ public class Train {
 
     public void setTrainName(String trainName) {
         this.trainName = trainName;
+    }
+
+    public Integer getTrainType() {
+        return trainType;
+    }
+
+    public void setTrainType(Integer trainType) {
+        this.trainType = trainType;
     }
 
     public boolean isPantryCar() {

@@ -5,20 +5,33 @@ import com.example.demo.model.TrainSchedule;
 import java.util.List;
 
 public class TrainScheduleResponse {
-    private List<TrainSchedule> trainSchedules;
+    private List<TrainSchedule> SingleTrainSchedules;
+    private List<TrainSchedule> ReturnTrainSchedules;
     private MessageResponse error;
 
-    public TrainScheduleResponse(List<TrainSchedule> trainSchedules, MessageResponse error) {
-        this.trainSchedules = trainSchedules;
+    public TrainScheduleResponse() {
+    }
+
+    public TrainScheduleResponse(List<TrainSchedule> singleTrainSchedules, List<TrainSchedule> returnTrainSchedules, MessageResponse error) {
+        SingleTrainSchedules = singleTrainSchedules;
+        ReturnTrainSchedules = returnTrainSchedules;
         this.error = error;
     }
 
-    public List<TrainSchedule> getTrainSchedules() {
-        return trainSchedules;
+    public List<TrainSchedule> getSingleTrainSchedules() {
+        return SingleTrainSchedules;
     }
 
-    public void setTrainSchedules(List<TrainSchedule> trainSchedules) {
-        this.trainSchedules = trainSchedules;
+    public void setSingleTrainSchedules(List<TrainSchedule> singleTrainSchedules) {
+        SingleTrainSchedules = singleTrainSchedules;
+    }
+
+    public List<TrainSchedule> getReturnTrainSchedules() {
+        return ReturnTrainSchedules;
+    }
+
+    public void setReturnTrainSchedules(List<TrainSchedule> returnTrainSchedules) {
+        ReturnTrainSchedules = returnTrainSchedules;
     }
 
     public MessageResponse getError() {

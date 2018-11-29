@@ -23,7 +23,7 @@ public class TrainController {
     }
 
     @PostMapping("train/diagram")
-    public ResponseEntity getTrainDiagrambyTrainId(@RequestBody String trainID){
+    public ResponseEntity getTrainDiagrambyTrainId(@RequestBody Integer trainID){
         return new ResponseEntity<>(trainService.getTrainDiagrambyTrainId(trainID), HttpStatus.OK);
     }
 
