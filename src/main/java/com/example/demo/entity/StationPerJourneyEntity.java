@@ -10,6 +10,10 @@ import java.util.Date;
 public class StationPerJourneyEntity implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "stationPerJourneyID")
+    private Integer stationPerJourneyID;
+
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "stationID", referencedColumnName = "StationID")
     public StationEntity stationEntity;
@@ -25,6 +29,14 @@ public class StationPerJourneyEntity implements Serializable {
     @Basic
     @Column(name = "departureTime")
     private Date departureTime;
+
+    public Integer getStationPerJourneyID() {
+        return stationPerJourneyID;
+    }
+
+    public void setStationPerJourneyID(Integer stationPerJourneyID) {
+        this.stationPerJourneyID = stationPerJourneyID;
+    }
 
     public StationEntity getStationEntity() {
         return stationEntity;
@@ -55,6 +67,14 @@ public class StationPerJourneyEntity implements Serializable {
     }
 
     public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
+    }
+
+    public StationPerJourneyEntity(Integer stationPerJourneyID, StationEntity stationEntity, TrainScheduleEntity trainScheduleEntity, Date arrivalTime, Date departureTime) {
+        this.stationPerJourneyID = stationPerJourneyID;
+        this.stationEntity = stationEntity;
+        this.trainScheduleEntity = trainScheduleEntity;
+        this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
     }
 }

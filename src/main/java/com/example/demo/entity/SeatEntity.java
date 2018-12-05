@@ -13,15 +13,19 @@ public class SeatEntity {
 
     @Basic
     @Column(name = "SeatNumber")
-    private int seatNumber;
+    private Integer seatNumber;
 
-    @Basic
-    @Column(name = "SeatStatus")
-    private int seatStatus;
+//    @Basic
+//    @Column(name = "SeatStatus")
+//    private Integer seatStatus;
+
+//    @ManyToOne
+//    @JoinColumn(name = "seatStatusID", nullable = true)
+//    private SeatStatusEntity seatStatusEntity;
 
     @Basic
     @Column(name = "SeatType")
-    private int seatType;
+    private Integer seatType;
 
     @ManyToOne
     @JoinColumn(name = "steamerID", nullable = true)
@@ -30,12 +34,34 @@ public class SeatEntity {
     @OneToMany(mappedBy = "seatEntity", cascade = CascadeType.ALL)
     List<TicketEntity> ticketEntities;
 
+    @OneToMany(mappedBy = "seatEntity", cascade = CascadeType.ALL)
+    List<SeatStatusEntity> seatStatusEntities;
+
+    public SeatEntity() {
+    }
+
     public Integer getSeatID() {
         return seatID;
     }
 
     public void setSeatID(Integer seatID) {
         this.seatID = seatID;
+    }
+
+    public Integer getSeatNumber() {
+        return seatNumber;
+    }
+
+    public void setSeatNumber(Integer seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
+    public Integer getSeatType() {
+        return seatType;
+    }
+
+    public void setSeatType(Integer seatType) {
+        this.seatType = seatType;
     }
 
     public SteamerEntity getSteamerEntity() {
@@ -54,27 +80,19 @@ public class SeatEntity {
         this.ticketEntities = ticketEntities;
     }
 
-    public int getSeatNumber() {
-        return seatNumber;
+    public List<SeatStatusEntity> getSeatStatusEntities() {
+        return seatStatusEntities;
     }
 
-    public void setSeatNumber(int seatNumber) {
+    public void setSeatStatusEntities(List<SeatStatusEntity> seatStatusEntities) {
+        this.seatStatusEntities = seatStatusEntities;
+    }
+
+    public SeatEntity(Integer seatNumber, Integer seatType, SteamerEntity steamerEntity, List<TicketEntity> ticketEntities, List<SeatStatusEntity> seatStatusEntities) {
         this.seatNumber = seatNumber;
-    }
-
-    public int getSeatStatus() {
-        return seatStatus;
-    }
-
-    public void setSeatStatus(int seatStatus) {
-        this.seatStatus = seatStatus;
-    }
-
-    public int getSeatType() {
-        return seatType;
-    }
-
-    public void setSeatType(int seatType) {
         this.seatType = seatType;
+        this.steamerEntity = steamerEntity;
+        this.ticketEntities = ticketEntities;
+        this.seatStatusEntities = seatStatusEntities;
     }
 }

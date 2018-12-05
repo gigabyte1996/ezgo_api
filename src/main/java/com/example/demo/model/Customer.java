@@ -20,7 +20,7 @@ public class Customer {
         this.identificationNumber = identificationNumber;
     }
 
-    public int getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 

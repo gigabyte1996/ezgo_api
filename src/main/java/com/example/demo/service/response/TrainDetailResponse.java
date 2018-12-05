@@ -1,15 +1,20 @@
 package com.example.demo.service.response;
 
 import com.example.demo.model.Steamer;
+import com.example.demo.model.Train;
+import com.example.demo.model.TrainDetail;
 
 import java.util.List;
 
 public class TrainDetailResponse {
-    private Integer trainID;
-    private String trainName;
-    private Integer trainType;
-    private List<Steamer> steamerList;
-    private MessageResponse error;
+//    private List<TrainDetail> trainDetails;
+//    private MessageResponse error;
+
+        private Integer trainID;
+        private String trainName;
+        private Integer trainType;
+        private List<Steamer> steamerList;
+        private MessageResponse error;
 
     public Integer getTrainID() {
         return trainID;
@@ -35,7 +40,6 @@ public class TrainDetailResponse {
         this.trainType = trainType;
     }
 
-
     public List<Steamer> getSteamerList() {
         return steamerList;
     }
@@ -43,7 +47,6 @@ public class TrainDetailResponse {
     public void setSteamerList(List<Steamer> steamerList) {
         this.steamerList = steamerList;
     }
-
 
     public MessageResponse getError() {
         return error;

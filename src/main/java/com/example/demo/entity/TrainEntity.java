@@ -18,7 +18,7 @@ public class TrainEntity {
 
     @Basic
     @Column(name = "TrainType")
-    private int trainType;
+    private Integer trainType;
 
     @Basic
     @Column(name = "PantryCar")
@@ -30,6 +30,17 @@ public class TrainEntity {
 
     @OneToMany(mappedBy = "trainEntity", cascade = CascadeType.ALL)
     private List<TrainScheduleEntity> trainScheduleEntities;
+
+    public TrainEntity() {
+    }
+
+    public TrainEntity(String trainName, Integer trainType, boolean pantryCar, List<SteamerEntity> steamerEntities, List<TrainScheduleEntity> trainScheduleEntities) {
+        this.trainName = trainName;
+        this.trainType = trainType;
+        this.pantryCar = pantryCar;
+        this.steamerEntities = steamerEntities;
+        this.trainScheduleEntities = trainScheduleEntities;
+    }
 
     public Integer getTrainID() {
         return trainID;
@@ -47,12 +58,20 @@ public class TrainEntity {
         this.trainName = trainName;
     }
 
-    public int getTrainType() {
+    public Integer getTrainType() {
         return trainType;
     }
 
-    public void setTrainType(int trainType) {
+    public void setTrainType(Integer trainType) {
         this.trainType = trainType;
+    }
+
+    public boolean isPantryCar() {
+        return pantryCar;
+    }
+
+    public void setPantryCar(boolean pantryCar) {
+        this.pantryCar = pantryCar;
     }
 
     public List<SteamerEntity> getSteamerEntities() {
@@ -69,13 +88,5 @@ public class TrainEntity {
 
     public void setTrainScheduleEntities(List<TrainScheduleEntity> trainScheduleEntities) {
         this.trainScheduleEntities = trainScheduleEntities;
-    }
-
-    public boolean isPantryCar() {
-        return pantryCar;
-    }
-
-    public void setPantryCar(boolean pantryCar) {
-        this.pantryCar = pantryCar;
     }
 }

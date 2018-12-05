@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.FareScheduleEntity;
 import com.example.demo.entity.TicketEntity;
+import com.example.demo.entity.TrainScheduleEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

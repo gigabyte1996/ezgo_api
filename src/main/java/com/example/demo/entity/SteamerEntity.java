@@ -14,11 +14,11 @@ public class SteamerEntity {
 
     @Basic
     @Column(name = "SteamerNumber")
-    private int steamerNumber;
+    private Integer steamerNumber;
 
     @Basic
     @Column(name = "SteamerType")
-    private int steamerType;
+    private Integer steamerType;
 
     @Basic
     @Column(name = "AirCondition")
@@ -40,19 +40,19 @@ public class SteamerEntity {
         this.steamerID = steamerID;
     }
 
-    public int getSteamerNumber() {
+    public Integer getSteamerNumber() {
         return steamerNumber;
     }
 
-    public void setSteamerNumber(int steamerNumber) {
+    public void setSteamerNumber(Integer steamerNumber) {
         this.steamerNumber = steamerNumber;
     }
 
-    public int getSteamerType() {
+    public Integer getSteamerType() {
         return steamerType;
     }
 
-    public void setSteamerType(int steamerType) {
+    public void setSteamerType(Integer steamerType) {
         this.steamerType = steamerType;
     }
 

@@ -10,6 +10,10 @@ public class TicketEntity {
     @Column(name = "TicketID")
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "trainScheduleID", nullable = false)
+    private TrainScheduleEntity trainScheduleEntity;
+
     @Basic
     @Column(name = "fromStation")
     private String fromStation;
@@ -67,6 +71,10 @@ public class TicketEntity {
     @JoinColumn(name = "FareScheduleID", nullable = false)
     private FareScheduleEntity fareScheduleEntity;
 
+    @ManyToOne
+    @JoinColumn(name = "customerID", nullable = false)
+    public CustomerEntity customerEntity;
+
     public TicketEntity() {
     }
 
@@ -76,6 +84,14 @@ public class TicketEntity {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public TrainScheduleEntity getTrainScheduleEntity() {
+        return trainScheduleEntity;
+    }
+
+    public void setTrainScheduleEntity(TrainScheduleEntity trainScheduleEntity) {
+        this.trainScheduleEntity = trainScheduleEntity;
     }
 
     public String getFromStation() {
@@ -190,8 +206,16 @@ public class TicketEntity {
         this.fareScheduleEntity = fareScheduleEntity;
     }
 
+    public CustomerEntity getCustomerEntity() {
+        return customerEntity;
+    }
 
-    public TicketEntity(String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer steamerCode, Integer singOrReTurn, Long fare, String passengerName, String identificationNumber, Integer age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity) {
+    public void setCustomerEntity(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
+    }
+
+    public TicketEntity(TrainScheduleEntity trainScheduleEntity, String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer steamerCode, Integer singOrReTurn, Long fare, String passengerName, String identificationNumber, Integer age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity, CustomerEntity customerEntity) {
+        this.trainScheduleEntity = trainScheduleEntity;
         this.fromStation = fromStation;
         this.toStation = toStation;
         this.scheduleTypeCode = scheduleTypeCode;
@@ -206,5 +230,6 @@ public class TicketEntity {
         this.userEntity = userEntity;
         this.seatEntity = seatEntity;
         this.fareScheduleEntity = fareScheduleEntity;
+        this.customerEntity = customerEntity;
     }
 }

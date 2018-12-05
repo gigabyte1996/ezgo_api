@@ -5,6 +5,7 @@ import java.util.Date;
 public class Ticket {
     private Integer ticketID;
     private Integer userID;
+    private Integer trainScheduleID;
     private Integer fareScheduleID;
     private String FromStation;
     private String toStation;
@@ -21,6 +22,14 @@ public class Ticket {
 
     public Ticket() {
 
+    }
+
+    public Integer getTrainScheduleID() {
+        return trainScheduleID;
+    }
+
+    public void setTrainScheduleID(Integer trainScheduleID) {
+        this.trainScheduleID = trainScheduleID;
     }
 
     public Integer getTicketID() {
@@ -143,9 +152,10 @@ public class Ticket {
         this.age = age;
     }
 
-    public Ticket(Integer ticketID, Integer userID, Integer fareScheduleID, String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer seatCode, Integer steamerCode, Integer singleOrReturn, Long fare, String passengerName, String identificationNumber, Date dateOfBirth, Integer age) {
+    public Ticket(Integer ticketID, Integer userID, Integer trainScheduleID, Integer fareScheduleID, String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer seatCode, Integer steamerCode, Integer singleOrReturn, Long fare, String passengerName, String identificationNumber, Date dateOfBirth, Integer age) {
         this.ticketID = ticketID;
         this.userID = userID;
+        this.trainScheduleID = trainScheduleID;
         this.fareScheduleID = fareScheduleID;
         FromStation = fromStation;
         this.toStation = toStation;

@@ -44,21 +44,19 @@ public class TrainScheduleEntity {
     private TrainEntity trainEntity;
 
     @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
+    List<TicketEntity> ticketEntities;
+
+    @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
+    List<SeatStatusEntity> seatStatusEntities;
+
+    @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
     List<FareScheduleEntity> fareScheduleEntities;
 
     @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
     List<StationPerJourneyEntity> stationPerJourneyEntities;
 
-    public void setArrivalTime(Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
 
-    public List<StationPerJourneyEntity> getStationPerJourneyEntities() {
-        return stationPerJourneyEntities;
-    }
-
-    public void setStationPerJourneyEntities(List<StationPerJourneyEntity> stationPerJourneyEntities) {
-        this.stationPerJourneyEntities = stationPerJourneyEntities;
+    public TrainScheduleEntity() {
     }
 
     public Integer getTrainScheduleID() {
@@ -97,7 +95,7 @@ public class TrainScheduleEntity {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Timestamp arrivalTime) {
+    public void setArrivalTime(Date arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
@@ -125,6 +123,22 @@ public class TrainScheduleEntity {
         this.trainEntity = trainEntity;
     }
 
+    public List<TicketEntity> getTicketEntities() {
+        return ticketEntities;
+    }
+
+    public void setTicketEntities(List<TicketEntity> ticketEntities) {
+        this.ticketEntities = ticketEntities;
+    }
+
+    public List<SeatStatusEntity> getSeatStatusEntities() {
+        return seatStatusEntities;
+    }
+
+    public void setSeatStatusEntities(List<SeatStatusEntity> seatStatusEntities) {
+        this.seatStatusEntities = seatStatusEntities;
+    }
+
     public List<FareScheduleEntity> getFareScheduleEntities() {
         return fareScheduleEntities;
     }
@@ -133,5 +147,26 @@ public class TrainScheduleEntity {
         this.fareScheduleEntities = fareScheduleEntities;
     }
 
+    public List<StationPerJourneyEntity> getStationPerJourneyEntities() {
+        return stationPerJourneyEntities;
+    }
 
+    public void setStationPerJourneyEntities(List<StationPerJourneyEntity> stationPerJourneyEntities) {
+        this.stationPerJourneyEntities = stationPerJourneyEntities;
+    }
+
+
+    public TrainScheduleEntity(int scheduleTyprCode, String jouneyName, Date departureTime, Date arrivalTime, StationEntity firstStation, StationEntity lastStation, TrainEntity trainEntity, List<TicketEntity> ticketEntities, List<SeatStatusEntity> seatStatusEntities, List<FareScheduleEntity> fareScheduleEntities, List<StationPerJourneyEntity> stationPerJourneyEntities) {
+        this.scheduleTyprCode = scheduleTyprCode;
+        this.jouneyName = jouneyName;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.firstStation = firstStation;
+        this.lastStation = lastStation;
+        this.trainEntity = trainEntity;
+        this.ticketEntities = ticketEntities;
+        this.seatStatusEntities = seatStatusEntities;
+        this.fareScheduleEntities = fareScheduleEntities;
+        this.stationPerJourneyEntities = stationPerJourneyEntities;
+    }
 }

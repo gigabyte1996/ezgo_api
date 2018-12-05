@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "CustomerEntity")
@@ -31,15 +32,10 @@ public class CustomerEntity {
     @Column(name = "IdentificationNumber")
     private String identificationNumber;
 
-    public CustomerEntity() {
-    }
+    @OneToMany(mappedBy = "customerEntity", cascade = CascadeType.ALL)
+    private List<TicketEntity> ticketEntities;
 
-    public CustomerEntity(UserEntity userEntity, String customerName, String email, String phoneNumber, String identificationNumber) {
-        this.userEntity = userEntity;
-        this.customerName = customerName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.identificationNumber = identificationNumber;
+    public CustomerEntity() {
     }
 
     public Integer getCustomerID() {
@@ -88,5 +84,22 @@ public class CustomerEntity {
 
     public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
+    }
+
+    public List<TicketEntity> getTicketEntities() {
+        return ticketEntities;
+    }
+
+    public void setTicketEntities(List<TicketEntity> ticketEntities) {
+        this.ticketEntities = ticketEntities;
+    }
+
+    public CustomerEntity(UserEntity userEntity, String customerName, String email, String phoneNumber, String identificationNumber, List<TicketEntity> ticketEntities) {
+        this.userEntity = userEntity;
+        this.customerName = customerName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.identificationNumber = identificationNumber;
+        this.ticketEntities = ticketEntities;
     }
 }

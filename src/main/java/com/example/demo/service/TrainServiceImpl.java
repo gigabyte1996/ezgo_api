@@ -6,10 +6,7 @@ import com.example.demo.entity.SteamerEntity;
 import com.example.demo.entity.TrainEntity;
 import com.example.demo.entity.TrainScheduleEntity;
 import com.example.demo.model.*;
-import com.example.demo.repository.SeatRepository;
-import com.example.demo.repository.SteamerRepository;
-import com.example.demo.repository.TrainRepository;
-import com.example.demo.repository.TrainScheduleRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.response.MessageResponse;
 import com.example.demo.service.response.TrainDetailResponse;
 import com.example.demo.service.response.TrainScheduleResponse;
@@ -35,6 +32,9 @@ public class TrainServiceImpl implements TrainService {
 
     @Autowired
     private SeatRepository seatRepository;
+
+    @Autowired
+    private SeatStatusRepository seatStatusRepository;
 
 
     @Override
@@ -64,34 +64,74 @@ public class TrainServiceImpl implements TrainService {
         return trainScheduleResponse;
     }
 
+//    @Override
+//    public TrainDetailResponse getTrainDiagrambyTrainId( ArrayList<Integer> ids) {
+////        id = id.substring(1, id.length() - 1);
+//        List<TrainDetail> trainDetails = new ArrayList<>();
+//        for (int i = 0; i < ids.size(); i++) {
+//            TrainEntity trainEntity = trainRepository.findTrainEntityByTrainID(ids.get(i));
+//            List<SteamerEntity> steamerEntities = steamerRepository.findSteamerEntitiesByTrainEntity_TrainID(ids.get(i));
+//            List<Steamer> steamers = new ArrayList<>();
+//            TrainDetail trainDetail = new TrainDetail();
+//            trainDetail.setTrainID(trainEntity.getTrainID());
+//            trainDetail.setTrainName(trainEntity.getTrainName());
+//            trainDetail.setTrainType(trainEntity.getTrainType());
+//            trainDetail.setSteamerList(parseListSteamerEntitiesToListSteamerModel(steamerEntities));
+//            for (SteamerEntity steamerEntity : steamerEntities) {
+//                List<SeatEntity> seatEntities = seatRepository.findSeatEntitiesBySteamerEntity_SteamerID(steamerEntity.getSteamerID());
+//                List<Seat> seats = new ArrayList<>();
+//                for (SeatEntity seatEntity : seatEntities) {
+//                    Seat seat = parseSeatEntityToSeatModel(seatEntity);
+//                    seats.add(seat);
+//                }
+//                Steamer steamer = parseSteamerEntityToSteamerModel(steamerEntity);
+//                steamers.add(steamer);
+//            }
+//            trainDetails.add(trainDetail);
+////            Train train1 = new TrainDetailResponse(train.getTrainID(), train.getTrainName(), train.getTrainType(), steamers, messageResponse);
+//
+//        }
+//        MessageResponse messageResponse = new MessageResponse(0, "Success");
+//        return new TrainDetailResponse(trainDetails, messageResponse);
+//
+//    }
+
     @Override
-    public TrainDetailResponse getTrainDiagrambyTrainId(Integer id) {
-//        id = id.substring(1, id.length() - 1);
-        TrainEntity trainEntity = trainRepository.findTrainEntityByTrainID(id);
-        List<SteamerEntity> steamerEntities = steamerRepository.findSteamerEntitiesByTrainEntity_TrainID(id);
+    public TrainDetailResponse getTrainDiagrambyTrainScheduleId(Integer id) {
+        Integer trainID = trainScheduleRepository.findTrainScheduleEntityByTrainScheduleID(id).getTrainEntity().getTrainID();
+        TrainEntity trainEntity = trainRepository.findTrainEntityByTrainID(trainID);
+        List<SteamerEntity> steamerEntities = steamerRepository.findSteamerEntitiesByTrainEntity_TrainID(trainID);
         List<Steamer> steamers = new ArrayList<>();
         Train train = parseTrainEntityToTrainModel(trainEntity);
-        MessageResponse messageResponse = new MessageResponse(0, "Success");
+        MessageResponse messageResponse = new MessageResponse(0,"Success");
         for (SteamerEntity steamerEntity : steamerEntities) {
-            List<SeatEntity> seatEntities = seatRepository.findSeatEntitiesBySteamerEntity_SteamerID(steamerEntity.getSteamerID());
+            List<SeatEntity> seatEntities =  seatRepository.findSeatEntitiesBySteamerEntity_SteamerID(steamerEntity.getSteamerID());
             List<Seat> seats = new ArrayList<>();
-            for (SeatEntity seatEntity : seatEntities) {
-                Seat seat = parseSeatEntityToSeatModel(seatEntity);
+            for (SeatEntity seatEntity : seatEntities){
+                Seat seat = parseSeatEntityToSeatModel(seatEntity, id);
                 seats.add(seat);
             }
-            Steamer steamer = parseSteamerEntityToSteamerModel(steamerEntity);
+            Steamer steamer = parseSteamerEntityToSteamerModel(steamerEntity, id);
             steamers.add(steamer);
         }
-        TrainDetailResponse trainDetailResponse = new TrainDetailResponse(train.getTrainID(), train.getTrainName(), train.getTrainType(), steamers, messageResponse);
+        TrainDetailResponse trainDetailResponse = new TrainDetailResponse(train.getTrainID(), train.getTrainName(), train.getTrainType(), steamers,messageResponse  );
         return trainDetailResponse;
     }
 
-    private Seat parseSeatEntityToSeatModel(SeatEntity seatEntity) {
+    private List<Steamer> parseListSteamerEntitiesToListSteamerModel(List<SteamerEntity> steamerEntities, Integer trainScheduleID) {
+        List<Steamer> steamerList = new ArrayList<>();
+        for (SteamerEntity item : steamerEntities){
+            steamerList.add(parseSteamerEntityToSteamerModel(item, trainScheduleID));
+        }
+        return steamerList;
+    }
+
+    private Seat parseSeatEntityToSeatModel(SeatEntity seatEntity, Integer trainCheduleID) {
         Seat seat = new Seat();
         seat.setSeatID(seatEntity.getSeatID());
         seat.setSeatNumber(seatEntity.getSeatNumber());
         seat.setSeatType(seatEntity.getSeatType());
-        seat.setSeatStatus(seatEntity.getSeatStatus());
+        seat.setSeatStatus(seatStatusRepository.findSeatStatusEntityByTrainScheduleEntity_TrainScheduleIDAndAndSeatEntity_SeatID(trainCheduleID,seatEntity.getSeatID()).getSeatStatus());
         return seat;
     }
 
@@ -115,21 +155,21 @@ public class TrainServiceImpl implements TrainService {
         return null;
     }
 
-    private Steamer parseSteamerEntityToSteamerModel(SteamerEntity steamerEntity) {
+    private Steamer parseSteamerEntityToSteamerModel(SteamerEntity steamerEntity, Integer trainScheduleID) {
         Steamer steamer = new Steamer();
         steamer.setSteamerID(steamerEntity.getSteamerID());
         steamer.setSteamerNumber(steamerEntity.getSteamerNumber());
         steamer.setSteamerType(steamerEntity.getSteamerType());
         steamer.setAirCondition(steamerEntity.isAirCondition());
 //        steamer.setPantryCar(steamerEntity.isPantryCar());
-        steamer.setSeatList(parseListSeatEntityToListSeatModel(steamerEntity.getSeatEntities()));
+        steamer.setSeatList(parseListSeatEntityToListSeatModel(steamerEntity.getSeatEntities(), trainScheduleID));
         return steamer;
     }
 
-    private List<Seat> parseListSeatEntityToListSeatModel(List<SeatEntity> seatEntities) {
+    private List<Seat> parseListSeatEntityToListSeatModel(List<SeatEntity> seatEntities, Integer trainScheduleID) {
         List<Seat> seatList = new ArrayList<>();
         for (SeatEntity seatEntity : seatEntities) {
-            seatList.add(parseSeatEntityToSeatModel(seatEntity));
+            seatList.add(parseSeatEntityToSeatModel(seatEntity, trainScheduleID));
         }
         return seatList;
     }
