@@ -60,7 +60,10 @@ public class UserEntity {
     private List<TicketEntity> ticketEntities;
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
-    private List<CustomerEntity> customerEntities;
+    private List<SeatStorageEntity> ticketPocketEntities;
+
+//    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
+//    private List<CustomerEntity> customerEntities;
 
 
     public Integer getUserID() {
@@ -167,11 +170,19 @@ public class UserEntity {
         this.ticketEntities = ticketEntities;
     }
 
-    public List<CustomerEntity> getCustomerEntities() {
-        return customerEntities;
+    public List<SeatStorageEntity> getTicketPocketEntities() {
+        return ticketPocketEntities;
     }
 
-    public void setCustomerEntities(List<CustomerEntity> customerEntities) {
-        this.customerEntities = customerEntities;
+    public void setTicketPocketEntities(List<SeatStorageEntity> ticketPocketEntities) {
+        this.ticketPocketEntities = ticketPocketEntities;
     }
+    //
+//    public List<CustomerEntity> getCustomerEntities() {
+//        return customerEntities;
+//    }
+//
+//    public void setCustomerEntities(List<CustomerEntity> customerEntities) {
+//        this.customerEntities = customerEntities;
+//    }
 }

@@ -55,7 +55,6 @@ public class TrainServiceImpl implements TrainService {
             trainScheduleResponse = new TrainScheduleResponse(trainScheduleList, null, messageResponse);
 
         } else {
-
             trainScheduleList = findSchedule(requestTrain.getFromStation(), requestTrain.getToStation(), requestTrain.getDepartureTime());
             trainScheduleList1 = findSchedule(requestTrain.getToStation(), requestTrain.getFromStation(), requestTrain.getReturnTime());
             trainScheduleResponse = new TrainScheduleResponse(trainScheduleList, trainScheduleList1, messageResponse);
@@ -188,6 +187,7 @@ public class TrainServiceImpl implements TrainService {
     private TrainSchedule parseTrainScheduleEntityToTrainSchdeduleModel(TrainScheduleEntity trainScheduleEntity) {
         TrainSchedule trainSchedule = new TrainSchedule();
         trainSchedule.setTrainScheduleID(trainScheduleEntity.getTrainScheduleID());
+        trainSchedule.setTrainName(trainScheduleEntity.getTrainEntity().getTrainName());
         trainSchedule.setFirstStation(trainScheduleEntity.getFirstStation().getStationName());
         trainSchedule.setLastStation(trainScheduleEntity.getLastStation().getStationName());
         trainSchedule.setJouneyName(trainScheduleEntity.getJouneyName());

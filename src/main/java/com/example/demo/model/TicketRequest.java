@@ -4,7 +4,7 @@ import java.util.List;
 
 public class TicketRequest {
     private List<Ticket> tickets;
-    private Customer customer;
+//    private Customer customer;
 //    private String userName;
 
     public List<Ticket> getTickets() {
@@ -15,13 +15,6 @@ public class TicketRequest {
         this.tickets = tickets;
     }
 
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
 
 //    public String getUserName() {
 //        return userName;

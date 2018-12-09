@@ -71,9 +71,9 @@ public class TicketEntity {
     @JoinColumn(name = "FareScheduleID", nullable = false)
     private FareScheduleEntity fareScheduleEntity;
 
-    @ManyToOne
-    @JoinColumn(name = "customerID", nullable = false)
-    public CustomerEntity customerEntity;
+//    @ManyToOne
+//    @JoinColumn(name = "customerID", nullable = false)
+//    public CustomerEntity customerEntity;
 
     public TicketEntity() {
     }
@@ -206,15 +206,16 @@ public class TicketEntity {
         this.fareScheduleEntity = fareScheduleEntity;
     }
 
-    public CustomerEntity getCustomerEntity() {
-        return customerEntity;
-    }
+//    public CustomerEntity getCustomerEntity() {
+//        return customerEntity;
+//    }
+//
+//    public void setCustomerEntity(CustomerEntity customerEntity) {
+//        this.customerEntity = customerEntity;
+//    }
 
-    public void setCustomerEntity(CustomerEntity customerEntity) {
-        this.customerEntity = customerEntity;
-    }
 
-    public TicketEntity(TrainScheduleEntity trainScheduleEntity, String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer steamerCode, Integer singOrReTurn, Long fare, String passengerName, String identificationNumber, Integer age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity, CustomerEntity customerEntity) {
+    public TicketEntity(TrainScheduleEntity trainScheduleEntity, String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer steamerCode, Integer singOrReTurn, Long fare, String passengerName, String identificationNumber, Integer age, String ticketCode, UserEntity userEntity, SeatEntity seatEntity, FareScheduleEntity fareScheduleEntity) {
         this.trainScheduleEntity = trainScheduleEntity;
         this.fromStation = fromStation;
         this.toStation = toStation;
@@ -230,6 +231,5 @@ public class TicketEntity {
         this.userEntity = userEntity;
         this.seatEntity = seatEntity;
         this.fareScheduleEntity = fareScheduleEntity;
-        this.customerEntity = customerEntity;
     }
 }

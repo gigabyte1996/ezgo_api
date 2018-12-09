@@ -20,6 +20,9 @@ public class MessageResponse {
         this.description = description;
     }
 
+    public MessageResponse() {
+    }
+
     public MessageResponse(Integer code, String description) {
 
         this.code = code;

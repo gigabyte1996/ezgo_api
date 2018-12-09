@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.constant.HTTPCodeResponse;
-import com.example.demo.entity.CustomerEntity;
+//import com.example.demo.entity.CustomerEntity;
 import com.example.demo.entity.SeatEntity;
 import com.example.demo.entity.SeatStatusEntity;
 import com.example.demo.entity.TicketEntity;
@@ -28,8 +28,8 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
-    @Autowired
-    private CustomerRepository customerRepository;
+//    @Autowired
+//    private CustomerRepository customerRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -48,18 +48,20 @@ public class TicketServiceImpl implements TicketService {
         TicketEntity ticketEntity = new TicketEntity();
         ticketList = ticketRequest.getTickets();
         SeatEntity seatEntity = new SeatEntity();
-        Customer customer = new Customer();
-        customer = ticketRequest.getCustomer();
-        CustomerEntity customerEntity = new CustomerEntity();
-        if (customer.getCustomerID() != null){
-            customerEntity = customerRepository.findCustomerEntityByCustomerID(customer.getCustomerID());
-        }else {
-            customerEntity.setCustomerName(customer.getCustomerName());
-            customerEntity.setIdentificationNumber(customer.getIdentificationNumber());
-            customerEntity.setPhoneNumber(customer.getPhoneNumber());
-            customerEntity.setUserEntity(userRepository.findUserEntitiesByUserID(customer.getUserID()));
-            customerRepository.save(customerEntity);
-        }
+
+
+//        Customer customer = new Customer();
+//        customer = ticketRequest.getCustomer();
+//        CustomerEntity customerEntity = new CustomerEntity();
+//        if (customer.getCustomerID() != null){
+//            customerEntity = customerRepository.findCustomerEntityByCustomerID(customer.getCustomerID());
+//        }else {
+//            customerEntity.setCustomerName(customer.getCustomerName());
+//            customerEntity.setIdentificationNumber(customer.getIdentificationNumber());
+//            customerEntity.setPhoneNumber(customer.getPhoneNumber());
+//            customerEntity.setUserEntity(userRepository.findUserEntitiesByUserID(customer.getUserID()));
+//            customerRepository.save(customerEntity);
+//        }
         for (Ticket itemTicket : ticketList){
             ticketEntity.setFromStation(itemTicket.getFromStation());
             ticketEntity.setToStation(itemTicket.getToStation());
@@ -72,7 +74,7 @@ public class TicketServiceImpl implements TicketService {
             ticketEntity.setIdentificationNumber(itemTicket.getIdentificationNumber());
             ticketEntity.setAge(itemTicket.getAge());
             ticketEntity.setSeatEntity(seatRepository.findSeatEntitiesBySeatID(itemTicket.getSeatCode()));
-            ticketEntity.setCustomerEntity(customerRepository.findCustomerEntityByCustomerID(customerEntity.getCustomerID()));
+//            ticketEntity.setCustomerEntity(customerRepository.findCustomerEntityByCustomerID(customerEntity.getCustomerID()));
             ticketRepository.save(ticketEntity);
             createTicketCode(ticketEntity);
             TicketDetailResponse ticketDetailResponse = new TicketDetailResponse();
@@ -90,17 +92,17 @@ public class TicketServiceImpl implements TicketService {
         ticketResponse.setError(new MessageResponse(HTTPCodeResponse.SUCCESS, "Success"));
         return ticketResponse;
     }
-
-    private CustomerEntity parseCustomerModelToCustomerEntity(Customer customer) {
-        CustomerEntity customerEntity = new CustomerEntity();
-        customerEntity.setCustomerID(customer.getCustomerID());
-        customerEntity.setCustomerName(customer.getCustomerName());
-        customerEntity.setUserEntity(userRepository.findUserEntitiesByUserID(customer.getUserID()));
-        customerEntity.setEmail(customer.getEmail());
-        customerEntity.setPhoneNumber(customer.getPhoneNumber());
-        customerEntity.setIdentificationNumber(customer.getIdentificationNumber());
-        return customerEntity;
-    }
+//
+//    private CustomerEntity parseCustomerModelToCustomerEntity(Customer customer) {
+//        CustomerEntity customerEntity = new CustomerEntity();
+//        customerEntity.setCustomerID(customer.getCustomerID());
+//        customerEntity.setCustomerName(customer.getCustomerName());
+//        customerEntity.setUserEntity(userRepository.findUserEntitiesByUserID(customer.getUserID()));
+//        customerEntity.setEmail(customer.getEmail());
+//        customerEntity.setPhoneNumber(customer.getPhoneNumber());
+//        customerEntity.setIdentificationNumber(customer.getIdentificationNumber());
+//        return customerEntity;
+//    }
 
     private String createTicketCode(TicketEntity ticketEntity) {
         Integer userID = parseTicketEntityToTicketModel(ticketEntity).getUserID();

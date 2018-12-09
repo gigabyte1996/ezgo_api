@@ -5,6 +5,7 @@ import java.util.Date;
 public class TrainSchedule {
     private Integer trainScheduleID;
     private String jouneyName;
+    private String trainName;
     private Date departureTime;
     private Date arrivalTime;
     private String firstStation;
@@ -65,5 +66,13 @@ public class TrainSchedule {
 
     public void setTrainID(Integer trainID) {
         this.trainID = trainID;
+    }
+
+    public String getTrainName() {
+        return trainName;
+    }
+
+    public void setTrainName(String trainName) {
+        this.trainName = trainName;
     }
 }
