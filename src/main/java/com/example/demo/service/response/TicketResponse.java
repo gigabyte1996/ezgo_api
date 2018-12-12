@@ -6,15 +6,15 @@ import java.util.List;
 
 public class TicketResponse {
 
-    private List<TicketDetailResponse> ticketDetailResponses;
+    private List<Ticket> tickets;
     private MessageResponse error;
 
-    public List<TicketDetailResponse> getTicketDetailResponses() {
-        return ticketDetailResponses;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setTicketDetailResponses(List<TicketDetailResponse> ticketDetailResponses) {
-        this.ticketDetailResponses = ticketDetailResponses;
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     public MessageResponse getError() {
@@ -25,8 +25,8 @@ public class TicketResponse {
         this.error = error;
     }
 
-    public TicketResponse(List<TicketDetailResponse> ticketDetailResponses, MessageResponse error) {
-        this.ticketDetailResponses = ticketDetailResponses;
+    public TicketResponse(List<Ticket> tickets, MessageResponse error) {
+        this.tickets = tickets;
         this.error = error;
     }
 

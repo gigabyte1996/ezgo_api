@@ -48,6 +48,8 @@ public class SeatStorageServiceImpl implements SeatStorageService {
         seatStorageEntity.setFare(seatStorage.getFare());
         seatStorageEntity.setTrainScheduleID(seatStorage.getTrainScheduleID());
         seatStorageEntity.setSeatID(seatStorage.getSeatID());
+        seatStorageEntity.setToStation(seatStorage.getToStation());
+        seatStorageEntity.setFromStation(seatStorage.getFromStation());
         seatStorageRepository.save(seatStorageEntity);
         seatStatusEntity = seatStatusRepository.findSeatStatusEntityByTrainScheduleEntity_TrainScheduleIDAndAndSeatEntity_SeatID(seatStorage.getTrainScheduleID(), seatStorage.getSeatID());
         seatStatusEntity.setSeatStatus(SeatStatus.PICKING);
@@ -111,6 +113,8 @@ public class SeatStorageServiceImpl implements SeatStorageService {
         seatStorage.setSeatStorageID(seatStorageEntity.getSeatStorageID());
         seatStorage.setTrainName(seatStorageEntity.getTrainName());
         seatStorage.setScheduleName(seatStorageEntity.getScheduleName());
+        seatStorage.setToStation(seatStorageEntity.getToStation());
+        seatStorage.setFromStation(seatStorageEntity.getFromStation());
         seatStorage.setDepartureTime(seatStorageEntity.getDepartureTime());
         seatStorage.setCarrageNumber(seatStorageEntity.getCarrageNumber());
         seatStorage.setCarrageType(seatStorageEntity.getCarrageType());

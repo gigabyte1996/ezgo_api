@@ -2,7 +2,10 @@ package com.example.demo.service;
 
 
 import com.example.demo.model.FilterRequest;
+import com.example.demo.model.SearchTrain;
+import com.example.demo.model.TicketRequest;
 import com.example.demo.model.TrainRequest;
+import com.example.demo.service.response.SearchTrainResponse;
 import com.example.demo.service.response.TrainDetailResponse;
 import com.example.demo.service.response.TrainScheduleResponse;
 
@@ -16,4 +19,8 @@ public interface TrainService {
     TrainDetailResponse getTrainDiagrambyTrainScheduleId( Integer id);
 
     TrainScheduleResponse getTrainByFilter(FilterRequest filterRequest);
+
+    SearchTrainResponse searchTrainByName(SearchTrain searchTrain);
+
+//    TicketRequest test();
 }

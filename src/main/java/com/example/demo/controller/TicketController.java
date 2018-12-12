@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 
 import com.example.demo.model.TicketRequest;
+import com.example.demo.model.UserRequest;
 import com.example.demo.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,13 @@ public class TicketController {
     private TicketService ticketService;
 
     @PostMapping("ticket/create")
-    public ResponseEntity CreateTicket(@RequestBody TicketRequest ticketRequest){
-        return  new ResponseEntity<>(ticketService.createTicket(ticketRequest), HttpStatus.CREATED);
+    public ResponseEntity CreateTicket(@RequestBody List<TicketRequest> ticketRequestList){
+        return  new ResponseEntity<>(ticketService.createTicket(ticketRequestList), HttpStatus.CREATED);
     }
+
+    @GetMapping("ticket")
+    public ResponseEntity getTicketByUserID(@RequestBody UserRequest userRequest){
+        return new ResponseEntity<>(ticketService.getTicketByUserID(userRequest), HttpStatus.OK);
+    }
+
 }

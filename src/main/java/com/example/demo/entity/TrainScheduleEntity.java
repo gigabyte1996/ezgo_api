@@ -1,8 +1,6 @@
 package com.example.demo.entity;
 
 import javax.persistence.*;
-import java.lang.annotation.Target;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +27,10 @@ public class TrainScheduleEntity {
     @Basic
     @Column(name = "ArrivalTime")
     private Date arrivalTime;
+
+    @Basic
+    @Column(name = "TrainScheduleCode")
+    private String trainScheduleCode;
 
     @ManyToOne
     @JoinColumn(name = "FirstStationID", nullable = true)
@@ -155,12 +157,20 @@ public class TrainScheduleEntity {
         this.stationPerJourneyEntities = stationPerJourneyEntities;
     }
 
+    public String getTrainScheduleCode() {
+        return trainScheduleCode;
+    }
 
-    public TrainScheduleEntity(int scheduleTyprCode, String jouneyName, Date departureTime, Date arrivalTime, StationEntity firstStation, StationEntity lastStation, TrainEntity trainEntity, List<TicketEntity> ticketEntities, List<SeatStatusEntity> seatStatusEntities, List<FareScheduleEntity> fareScheduleEntities, List<StationPerJourneyEntity> stationPerJourneyEntities) {
+    public void setTrainScheduleCode(String trainScheduleCode) {
+        this.trainScheduleCode = trainScheduleCode;
+    }
+
+    public TrainScheduleEntity(int scheduleTyprCode, String jouneyName, Date departureTime, Date arrivalTime, String trainScheduleCode, StationEntity firstStation, StationEntity lastStation, TrainEntity trainEntity, List<TicketEntity> ticketEntities, List<SeatStatusEntity> seatStatusEntities, List<FareScheduleEntity> fareScheduleEntities, List<StationPerJourneyEntity> stationPerJourneyEntities) {
         this.scheduleTyprCode = scheduleTyprCode;
         this.jouneyName = jouneyName;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        this.trainScheduleCode = trainScheduleCode;
         this.firstStation = firstStation;
         this.lastStation = lastStation;
         this.trainEntity = trainEntity;

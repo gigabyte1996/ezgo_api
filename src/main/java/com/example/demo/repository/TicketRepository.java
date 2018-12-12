@@ -7,9 +7,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
 public interface TicketRepository extends CrudRepository<TicketEntity, Integer> {
-    FareScheduleEntity findTicketEntityById(Integer id);
+    List<TicketEntity> findTicketEntitiesByUserEntity_UserID(Integer userID);
 }

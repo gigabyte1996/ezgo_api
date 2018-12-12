@@ -55,6 +55,15 @@ public class SeatStorageEntity {
     @Column(name = "fare")
     private Integer fare;
 
+    @Basic
+    @Column(name = "fromStation")
+    private String fromStation;
+
+    @Basic
+    @Column(name = "toStation")
+    private String toStation;
+
+
     public Integer getCarrageType() {
         return carrageType;
     }
@@ -147,23 +156,27 @@ public class SeatStorageEntity {
         return seatID;
     }
 
+    public String getFromStation() {
+        return fromStation;
+    }
+
+    public void setFromStation(String fromStation) {
+        this.fromStation = fromStation;
+    }
+
+    public String getToStation() {
+        return toStation;
+    }
+
+    public void setToStation(String toStation) {
+        this.toStation = toStation;
+    }
+
     public void setSeatID(Integer seatID) {
         this.seatID = seatID;
     }
 
-    public SeatStorageEntity(UserEntity userEntity, String trainName, Integer trainScheduleID, Integer seatID, String scheduleName, Date departureTime, Integer carrageNumber, Integer seatNumber, Integer carrageType, Integer seatLocation, Integer fare) {
-        this.userEntity = userEntity;
-        this.trainName = trainName;
-        this.trainScheduleID = trainScheduleID;
-        this.seatID = seatID;
-        this.scheduleName = scheduleName;
-        this.departureTime = departureTime;
-        this.carrageNumber = carrageNumber;
-        this.seatNumber = seatNumber;
-        this.carrageType = carrageType;
-        this.seatLocation = seatLocation;
-        this.fare = fare;
-    }
+
 
     public SeatStorageEntity() {
     }

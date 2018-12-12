@@ -11,6 +11,7 @@ public class TrainSchedule {
     private String firstStation;
     private String lastStation;
     private Integer trainID;
+    private String trainScheduleCode;
 
     public Integer getTrainScheduleID() {
         return trainScheduleID;
@@ -74,5 +75,13 @@ public class TrainSchedule {
 
     public void setTrainName(String trainName) {
         this.trainName = trainName;
+    }
+
+    public String getTrainScheduleCode() {
+        return trainScheduleCode;
+    }
+
+    public void setTrainScheduleCode(String trainScheduleCode) {
+        this.trainScheduleCode = trainScheduleCode;
     }
 }

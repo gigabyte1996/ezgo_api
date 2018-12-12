@@ -3,6 +3,7 @@ package com.example.demo.repository;
 
 import com.example.demo.entity.SeatStatusEntity;
 import com.example.demo.entity.TrainScheduleEntity;
+import com.example.demo.model.SearchTrain;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +15,6 @@ import java.util.List;
 public interface TrainScheduleRepository extends CrudRepository<TrainScheduleEntity, Integer> {
     List<TrainScheduleEntity> findAll();
     TrainScheduleEntity findTrainScheduleEntityByTrainScheduleID(Integer id);
+    TrainScheduleEntity findTrainScheduleEntityByTrainScheduleCode(String trainScheduleCode);
 
 }

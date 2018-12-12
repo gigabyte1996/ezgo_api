@@ -7,6 +7,7 @@ public class Steamer {
     private Integer steamerNumber;
     private Integer steamerType;
     private boolean airCondition;
+    private Integer steamerFare;
     private List<Seat> seatList;
 
     public Integer getSteamerID() {
@@ -41,7 +42,15 @@ public class Steamer {
         this.airCondition = airCondition;
     }
 
-//    public boolean isPantryCar() {
+    public Integer getSteamerFare() {
+        return steamerFare;
+    }
+
+    public void setSteamerFare(Integer steamerFare) {
+        this.steamerFare = steamerFare;
+    }
+
+    //    public boolean isPantryCar() {
 //        return pantryCar;
 //    }
 //

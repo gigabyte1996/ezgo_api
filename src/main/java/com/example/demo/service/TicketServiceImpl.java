@@ -1,26 +1,22 @@
 package com.example.demo.service;
 
-import com.example.demo.constant.HTTPCodeResponse;
-//import com.example.demo.entity.CustomerEntity;
-import com.example.demo.entity.SeatEntity;
 import com.example.demo.entity.SeatStatusEntity;
 import com.example.demo.entity.TicketEntity;
-import com.example.demo.model.Customer;
-import com.example.demo.model.Ticket;
-import com.example.demo.model.TicketRequest;
-import com.example.demo.model.User;
+import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.response.MessageResponse;
 import com.example.demo.service.response.TicketDetailResponse;
 import com.example.demo.service.response.TicketResponse;
 import com.example.demo.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+//import com.example.demo.entity.CustomerEntity;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -28,8 +24,8 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private TicketRepository ticketRepository;
 
-//    @Autowired
-//    private CustomerRepository customerRepository;
+    @Autowired
+    private TrainScheduleRepository trainScheduleRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -41,68 +37,56 @@ public class TicketServiceImpl implements TicketService {
     private SeatStatusRepository seatStatusRepository;
 
     @Override
-    public TicketResponse createTicket(TicketRequest ticketRequest) {
+    public TicketResponse createTicket(List<TicketRequest> ticketRequestList) {
         TicketResponse ticketResponse = new TicketResponse();
         List<Ticket> ticketList = new ArrayList<>();
-        List<TicketDetailResponse> ticketDetailResponses = new ArrayList<>();
-        TicketEntity ticketEntity = new TicketEntity();
-        ticketList = ticketRequest.getTickets();
-        SeatEntity seatEntity = new SeatEntity();
-
-
-//        Customer customer = new Customer();
-//        customer = ticketRequest.getCustomer();
-//        CustomerEntity customerEntity = new CustomerEntity();
-//        if (customer.getCustomerID() != null){
-//            customerEntity = customerRepository.findCustomerEntityByCustomerID(customer.getCustomerID());
-//        }else {
-//            customerEntity.setCustomerName(customer.getCustomerName());
-//            customerEntity.setIdentificationNumber(customer.getIdentificationNumber());
-//            customerEntity.setPhoneNumber(customer.getPhoneNumber());
-//            customerEntity.setUserEntity(userRepository.findUserEntitiesByUserID(customer.getUserID()));
-//            customerRepository.save(customerEntity);
-//        }
-        for (Ticket itemTicket : ticketList){
-            ticketEntity.setFromStation(itemTicket.getFromStation());
-            ticketEntity.setToStation(itemTicket.getToStation());
-            ticketEntity.setScheduleTypeCode(itemTicket.getScheduleTypeCode());
-            ticketEntity.setTrainCode(itemTicket.getTrainCode());
-            ticketEntity.setSteamerCode(itemTicket.getSteamerCode());
-            ticketEntity.setSingOrReTurn(itemTicket.getSingleOrReturn());
-            ticketEntity.setPassengerName(itemTicket.getPassengerName());
-            ticketEntity.setFare(itemTicket.getFare());
-            ticketEntity.setIdentificationNumber(itemTicket.getIdentificationNumber());
-            ticketEntity.setAge(itemTicket.getAge());
-            ticketEntity.setSeatEntity(seatRepository.findSeatEntitiesBySeatID(itemTicket.getSeatCode()));
-//            ticketEntity.setCustomerEntity(customerRepository.findCustomerEntityByCustomerID(customerEntity.getCustomerID()));
-            ticketRepository.save(ticketEntity);
-            createTicketCode(ticketEntity);
-            TicketDetailResponse ticketDetailResponse = new TicketDetailResponse();
-            ticketDetailResponse.setTicket(parseTicketEntityToTicketModel(ticketEntity));
-            ticketDetailResponse.setTicketCode(createTicketCode(ticketEntity));
-            ticketDetailResponses.add(ticketDetailResponse);
-            SeatStatusEntity seatStatusEntity = new SeatStatusEntity();
-            seatStatusEntity = seatStatusRepository.findSeatStatusEntityByTrainScheduleEntity_TrainScheduleIDAndAndSeatEntity_SeatID(itemTicket.getTrainScheduleID(),itemTicket.getSeatCode());
-            seatStatusEntity.setSeatStatus(Constant.SeatStatus.RESERVED);
+        for (TicketRequest item : ticketRequestList) {
+            Ticket ticket = new Ticket();
+            ticket = createItemTicket(item);
+            ticketList.add(ticket);
         }
-
-        List<SeatEntity> seatEntities = new ArrayList<>();
-
-        ticketResponse.setTicketDetailResponses(ticketDetailResponses);
-        ticketResponse.setError(new MessageResponse(HTTPCodeResponse.SUCCESS, "Success"));
+        ticketResponse.setTickets(ticketList);
+        if (ticketResponse.getTickets().size()!= 0){
+            MessageResponse messageResponse =new MessageResponse(0, "Success");
+            ticketResponse.setError(messageResponse);
+        }
+        MessageResponse messageResponse =new MessageResponse(0, "Success");
         return ticketResponse;
     }
-//
-//    private CustomerEntity parseCustomerModelToCustomerEntity(Customer customer) {
-//        CustomerEntity customerEntity = new CustomerEntity();
-//        customerEntity.setCustomerID(customer.getCustomerID());
-//        customerEntity.setCustomerName(customer.getCustomerName());
-//        customerEntity.setUserEntity(userRepository.findUserEntitiesByUserID(customer.getUserID()));
-//        customerEntity.setEmail(customer.getEmail());
-//        customerEntity.setPhoneNumber(customer.getPhoneNumber());
-//        customerEntity.setIdentificationNumber(customer.getIdentificationNumber());
-//        return customerEntity;
-//    }
+
+    private Ticket createItemTicket(TicketRequest item) {
+        TicketDetailResponse ticketDetailResponse = new TicketDetailResponse();
+        List<TicketDetailResponse> ticketDetailResponses = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        SeatStorage seatStorage = item.getSeatStorage();
+        Passenger passenger = item.getPassenger();
+        Ticket ticket = new Ticket();
+        TicketEntity ticketEntity = new TicketEntity();
+        ticketEntity.setFromStation(seatStorage.getFromStation());
+        ticketEntity.setToStation(seatStorage.getToStation());
+        ticketEntity.setTrainScheduleEntity(trainScheduleRepository.findTrainScheduleEntityByTrainScheduleID(seatStorage.getTrainScheduleID()));
+        ticketEntity.setTrainName(seatStorage.getTrainName());
+        ticketEntity.setSteamerNumber(seatStorage.getCarrageNumber());
+        ticketEntity.setToStation(seatStorage.getToStation());
+        ticketEntity.setFromStation(seatStorage.getFromStation());
+        ticketEntity.setFare(seatStorage.getFare());
+        ticketEntity.setSteamerType(seatStorage.getCarrageType());
+        ticketEntity.setUserEntity(userRepository.findUserEntityByUserID(seatStorage.getUserID()));
+        ticketEntity.setDepartureTime(seatStorage.getDepartureTime());
+        ticketEntity.setPassengerName(passenger.getPassengerName());
+        ticketEntity.setIdentificationNumber(passenger.getIdentificationNumber());
+        ticketEntity.setTicketType(passenger.getTicketType());
+        ticketEntity.setDateOfBirth(passenger.getDateOfBirth());
+        ticketEntity.setSeatEntity(seatRepository.findSeatEntitiesBySeatID(seatStorage.getSeatID()));
+        ticketEntity.setTicketCode(createTicketCode(ticketEntity));
+        ticketRepository.save(ticketEntity);
+        ticket = parseTicketEntityToTicketModel(ticketEntity);
+
+        SeatStatusEntity seatStatusEntity = new SeatStatusEntity();
+        seatStatusEntity = seatStatusRepository.findSeatStatusEntityByTrainScheduleEntity_TrainScheduleIDAndAndSeatEntity_SeatID(item.getSeatStorage().getTrainScheduleID(), item.getSeatStorage().getSeatID());
+        seatStatusEntity.setSeatStatus(Constant.SeatStatus.RESERVED);
+        return ticket;
+    }
 
     private String createTicketCode(TicketEntity ticketEntity) {
         Integer userID = parseTicketEntityToTicketModel(ticketEntity).getUserID();
@@ -110,25 +94,56 @@ public class TicketServiceImpl implements TicketService {
         String fromStation = parseTicketEntityToTicketModel(ticketEntity).getFromStation();
         String toStation = parseTicketEntityToTicketModel(ticketEntity).getToStation();
         String passengerName = parseTicketEntityToTicketModel(ticketEntity).getPassengerName();
-        String ticketCode = userID + "-" + ticketID + "-" + fromStation + "-" + toStation + "-" + passengerName;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String dateCreate = sdf.format(ticketEntity.getCreateDateTime());
+        String ticketCode = userID + "-" + ticketID + "-" + fromStation + "-" + toStation + "-" + passengerName ;
         return ticketCode;
     }
 
-    private Ticket parseTicketEntityToTicketModel(TicketEntity ticketEntity){
+    @Override
+    public TicketResponse getTicketByUserID(UserRequest userRequest) {
+        List<Ticket> ticketList = new ArrayList<>();
+        ticketList = parseListTicketEntityToListTicketModel(ticketRepository.findTicketEntitiesByUserEntity_UserID(userRequest.getUserID()));
+        MessageResponse messageResponse = new MessageResponse(0,"Success");
+        TicketResponse ticketResponse = new TicketResponse(ticketList, messageResponse);
+        return ticketResponse;
+    }
+
+    private List<Ticket> parseListTicketEntityToListTicketModel(List<TicketEntity> ticketEntityList){
+        List<Ticket> ticketList = new ArrayList<>();
+        for (TicketEntity item : ticketEntityList){
+            Ticket ticket = new Ticket();
+            ticket = parseTicketEntityToTicketModel(item);
+            ticketList.add(ticket);
+        }
+        return ticketList;
+    }
+
+
+    private Ticket parseTicketEntityToTicketModel(TicketEntity ticketEntity) {
         Ticket ticket = new Ticket();
         ticket.setTicketID(ticketEntity.getId());
-        ticket.setFareScheduleID(ticketEntity.getFareScheduleEntity().getFareScheduleID());
         ticket.setFromStation(ticketEntity.getFromStation());
         ticket.setToStation(ticketEntity.getToStation());
-        ticket.setScheduleTypeCode(ticketEntity.getScheduleTypeCode());
-        ticket.setTrainCode(ticketEntity.getTrainCode());
-        ticket.setSteamerCode(ticketEntity.getSteamerCode());
-        ticket.setSingleOrReturn(ticketEntity.getSingOrReTurn());
+        ticket.setTrainScheduleID(ticketEntity.getTrainScheduleEntity().getTrainScheduleID());
+        ticket.setTrainScheduleName(ticketEntity.getTrainScheduleEntity().getJouneyName());
+        ticket.setTrainName(ticketEntity.getTrainName());
+        ticket.setCarrageNumber(ticketEntity.getSteamerNumber());
+        ticket.setCarrageType(ticketEntity.getSteamerType());
+        ticket.setSeatNumber(ticketEntity.getSeatEntity().getSeatNumber());
+        ticket.setSeatLocation(0);
+        ticket.setUserID(ticketEntity.getUserEntity().getUserID());
         ticket.setFare(ticketEntity.getFare());
         ticket.setPassengerName(ticketEntity.getPassengerName());
         ticket.setIdentificationNumber(ticketEntity.getIdentificationNumber());
-        ticket.setAge(ticketEntity.getAge());
-        ticket.setSeatCode(ticketEntity.getSeatEntity().getSeatID());
+        ticket.setDateOfBirth(ticketEntity.getDateOfBirth());
+        ticket.setTicketCode(ticketEntity.getTicketCode());
+        ticket.setTrainScheduleCode(ticketEntity.getTrainScheduleEntity().getTrainScheduleCode());
+        ticket.setDepartureTime(ticketEntity.getDepartureTime());
+        ticket.setTicketStatus(0);
+
+//        LocalDateTime dateTime = ticketEntity.getCreateDateTime();
+//        ticket.setCreateDate(dateTime);
         return ticket;
     }
 

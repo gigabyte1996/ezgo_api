@@ -30,14 +30,14 @@ public class FareScheduleEntity {
 
     @Basic
     @Column(name = "SingleFare")
-    private int singleFare;
+    private Integer singleFare;
 
     @Basic
     @Column(name = "returnFare")
-    private int returnFare;
+    private Integer returnFare;
 
-    @OneToMany(mappedBy = "fareScheduleEntity", cascade = CascadeType.ALL)
-    private List<TicketEntity> ticketEntities;
+//    @OneToMany(mappedBy = "fareScheduleEntity", cascade = CascadeType.ALL)
+//    private List<TicketEntity> ticketEntities;
 
     @ManyToOne
     @JoinColumn(name = "TrainScheduleID", nullable = false)
@@ -111,13 +111,6 @@ public class FareScheduleEntity {
         this.returnFare = returnFare;
     }
 
-    public List<TicketEntity> getTicketEntities() {
-        return ticketEntities;
-    }
-
-    public void setTicketEntities(List<TicketEntity> ticketEntities) {
-        this.ticketEntities = ticketEntities;
-    }
 
     public TrainScheduleEntity getTrainScheduleEntity() {
         return trainScheduleEntity;

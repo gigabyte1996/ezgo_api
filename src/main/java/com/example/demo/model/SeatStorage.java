@@ -14,6 +14,8 @@ public class SeatStorage {
     private Integer seatID;
     private String trainName;
     private String scheduleName;
+    private String fromStation;
+    private String toStation;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone="Asia/Ho_Chi_Minh")
     private Date departureTime;
@@ -23,6 +25,7 @@ public class SeatStorage {
     private Integer carrageType;
     private Integer seatLocation;
     private Integer fare;
+
 
     public Integer getCarrageType() {
         return carrageType;
@@ -123,13 +126,34 @@ public class SeatStorage {
     public SeatStorage() {
     }
 
-    public SeatStorage(Integer userID, Integer seatStorageID, Integer trainScheduleID, Integer seatID, String trainName, String scheduleName, Date departureTime, Integer carrageNumber, Integer seatNumber, Integer carrageType, Integer seatLocation, Integer fare) {
+
+    public String getFromStation() {
+        return fromStation;
+    }
+
+    public void setFromStation(String fromStation) {
+        this.fromStation = fromStation;
+    }
+
+    public String getToStation() {
+        return toStation;
+    }
+
+    public void setToStation(String toStation) {
+        this.toStation = toStation;
+    }
+
+
+
+    public SeatStorage(Integer userID, Integer seatStorageID, Integer trainScheduleID, Integer seatID, String trainName, String scheduleName, String fromStation, String toStation, Date departureTime, Integer carrageNumber, Integer seatNumber, Integer carrageType, Integer seatLocation, Integer fare) {
         this.userID = userID;
         this.seatStorageID = seatStorageID;
         this.trainScheduleID = trainScheduleID;
         this.seatID = seatID;
         this.trainName = trainName;
         this.scheduleName = scheduleName;
+        this.fromStation = fromStation;
+        this.toStation = toStation;
         this.departureTime = departureTime;
         this.carrageNumber = carrageNumber;
         this.seatNumber = seatNumber;

@@ -1,35 +1,54 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Ticket {
     private Integer ticketID;
     private Integer userID;
     private Integer trainScheduleID;
-    private Integer fareScheduleID;
-    private String FromStation;
+    private String fromStation;
     private String toStation;
-    private Integer scheduleTypeCode;
-    private Integer trainCode;
-    private Integer seatCode;
-    private Integer steamerCode;
-    private Integer singleOrReturn;
-    private Long fare;
+    private String trainScheduleCode;
+    private Integer ticketStatus;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Ho_Chi_Minh")
+    private Date departureTime;
+    private String trainScheduleName;
+    private String trainName;
+    private Integer carrageNumber;
+    private Integer seatNumber;
+    private Integer carrageType;
+    private Integer seatLocation;
+    private Integer fare;
+    private String ticketCode;
+//    private LocalDateTime createDate;
     private String passengerName;
+    private String ticketType;
     private String identificationNumber;
     private Date dateOfBirth;
-    private Integer age;
 
     public Ticket() {
 
     }
 
-    public Integer getTrainScheduleID() {
-        return trainScheduleID;
+
+    public String getTrainScheduleCode() {
+        return trainScheduleCode;
     }
 
-    public void setTrainScheduleID(Integer trainScheduleID) {
-        this.trainScheduleID = trainScheduleID;
+    public void setTrainScheduleCode(String trainScheduleCode) {
+        this.trainScheduleCode = trainScheduleCode;
+    }
+
+    public Integer getTicketStatus() {
+        return ticketStatus;
+    }
+
+    public void setTicketStatus(Integer ticketStatus) {
+        this.ticketStatus = ticketStatus;
     }
 
     public Integer getTicketID() {
@@ -48,20 +67,20 @@ public class Ticket {
         this.userID = userID;
     }
 
-    public Integer getFareScheduleID() {
-        return fareScheduleID;
+    public Integer getTrainScheduleID() {
+        return trainScheduleID;
     }
 
-    public void setFareScheduleID(Integer fareScheduleID) {
-        this.fareScheduleID = fareScheduleID;
+    public void setTrainScheduleID(Integer trainScheduleID) {
+        this.trainScheduleID = trainScheduleID;
     }
 
     public String getFromStation() {
-        return FromStation;
+        return fromStation;
     }
 
     public void setFromStation(String fromStation) {
-        FromStation = fromStation;
+        this.fromStation = fromStation;
     }
 
     public String getToStation() {
@@ -72,52 +91,76 @@ public class Ticket {
         this.toStation = toStation;
     }
 
-    public Integer getScheduleTypeCode() {
-        return scheduleTypeCode;
+    public Date getDepartureTime() {
+        return departureTime;
     }
 
-    public void setScheduleTypeCode(Integer scheduleTypeCode) {
-        this.scheduleTypeCode = scheduleTypeCode;
+    public void setDepartureTime(Date departureTime) {
+        this.departureTime = departureTime;
     }
 
-    public Integer getTrainCode() {
-        return trainCode;
+    public String getTrainScheduleName() {
+        return trainScheduleName;
     }
 
-    public void setTrainCode(Integer trainCode) {
-        this.trainCode = trainCode;
+    public void setTrainScheduleName(String trainScheduleName) {
+        this.trainScheduleName = trainScheduleName;
     }
 
-    public Integer getSeatCode() {
-        return seatCode;
+    public String getTrainName() {
+        return trainName;
     }
 
-    public void setSeatCode(Integer seatCode) {
-        this.seatCode = seatCode;
+    public void setTrainName(String trainName) {
+        this.trainName = trainName;
     }
 
-    public Integer getSteamerCode() {
-        return steamerCode;
+    public Integer getCarrageNumber() {
+        return carrageNumber;
     }
 
-    public void setSteamerCode(Integer steamerCode) {
-        this.steamerCode = steamerCode;
+    public void setCarrageNumber(Integer carrageNumber) {
+        this.carrageNumber = carrageNumber;
     }
 
-    public Integer getSingleOrReturn() {
-        return singleOrReturn;
+    public Integer getSeatNumber() {
+        return seatNumber;
     }
 
-    public void setSingleOrReturn(Integer singleOrReturn) {
-        this.singleOrReturn = singleOrReturn;
+    public void setSeatNumber(Integer seatNumber) {
+        this.seatNumber = seatNumber;
     }
 
-    public Long getFare() {
+    public Integer getCarrageType() {
+        return carrageType;
+    }
+
+    public void setCarrageType(Integer carrageType) {
+        this.carrageType = carrageType;
+    }
+
+    public Integer getSeatLocation() {
+        return seatLocation;
+    }
+
+    public void setSeatLocation(Integer seatLocation) {
+        this.seatLocation = seatLocation;
+    }
+
+    public Integer getFare() {
         return fare;
     }
 
-    public void setFare(Long fare) {
+    public void setFare(Integer fare) {
         this.fare = fare;
+    }
+
+    public String getTicketCode() {
+        return ticketCode;
+    }
+
+    public void setTicketCode(String ticketCode) {
+        this.ticketCode = ticketCode;
     }
 
     public String getPassengerName() {
@@ -128,6 +171,14 @@ public class Ticket {
         this.passengerName = passengerName;
     }
 
+    public String getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(String ticketType) {
+        this.ticketType = ticketType;
+    }
+
     public String getIdentificationNumber() {
         return identificationNumber;
     }
@@ -135,6 +186,14 @@ public class Ticket {
     public void setIdentificationNumber(String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
+
+//    public LocalDateTime getCreateDate() {
+//        return createDate;
+//    }
+//
+//    public void setCreateDate(LocalDateTime createDate) {
+//        this.createDate = createDate;
+//    }
 
     public Date getDateOfBirth() {
         return dateOfBirth;
@@ -144,30 +203,27 @@ public class Ticket {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Integer getAge() {
-        return age;
-    }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Ticket(Integer ticketID, Integer userID, Integer trainScheduleID, Integer fareScheduleID, String fromStation, String toStation, Integer scheduleTypeCode, Integer trainCode, Integer seatCode, Integer steamerCode, Integer singleOrReturn, Long fare, String passengerName, String identificationNumber, Date dateOfBirth, Integer age) {
+    public Ticket(Integer ticketID, Integer userID, Integer trainScheduleID, String fromStation, String toStation, String trainScheduleCode, Integer ticketStatus, Date departureTime, String trainScheduleName, String trainName, Integer carrageNumber, Integer seatNumber, Integer carrageType, Integer seatLocation, Integer fare, String ticketCode, String passengerName, String ticketType, String identificationNumber, Date dateOfBirth) {
         this.ticketID = ticketID;
         this.userID = userID;
         this.trainScheduleID = trainScheduleID;
-        this.fareScheduleID = fareScheduleID;
-        FromStation = fromStation;
+        this.fromStation = fromStation;
         this.toStation = toStation;
-        this.scheduleTypeCode = scheduleTypeCode;
-        this.trainCode = trainCode;
-        this.seatCode = seatCode;
-        this.steamerCode = steamerCode;
-        this.singleOrReturn = singleOrReturn;
+        this.trainScheduleCode = trainScheduleCode;
+        this.ticketStatus = ticketStatus;
+        this.departureTime = departureTime;
+        this.trainScheduleName = trainScheduleName;
+        this.trainName = trainName;
+        this.carrageNumber = carrageNumber;
+        this.seatNumber = seatNumber;
+        this.carrageType = carrageType;
+        this.seatLocation = seatLocation;
         this.fare = fare;
+        this.ticketCode = ticketCode;
         this.passengerName = passengerName;
+        this.ticketType = ticketType;
         this.identificationNumber = identificationNumber;
         this.dateOfBirth = dateOfBirth;
-        this.age = age;
     }
 }
