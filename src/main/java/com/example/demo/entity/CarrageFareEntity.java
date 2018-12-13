@@ -28,6 +28,9 @@ public class CarrageFareEntity {
     @Column(name = "carrageFare")
     private Integer carrageFare;
 
+    public CarrageFareEntity() {
+    }
+
     public Integer getCarrageFareID() {
         return CarrageFareID;
     }

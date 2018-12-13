@@ -46,8 +46,19 @@ public class TrainServiceImpl implements TrainService {
         List<TrainSchedule> trainScheduleList = new ArrayList<>();
         List<TrainSchedule> trainScheduleList1 = new ArrayList<>();
         TrainScheduleResponse trainScheduleResponse = new TrainScheduleResponse();
+        if (requestTrain.getDepartureTime() == null && requestTrain.getReturnTime() == null) {
 
-        if (requestTrain.getDepartureTime() == null) {
+            List<TrainScheduleEntity> trainScheduleEntities = trainScheduleRepository.findAll();
+            List<TrainSchedule> trainSchedules = new ArrayList<>();
+            for (TrainScheduleEntity item : trainScheduleEntities){
+                if (item.getFirstStation().getStationName().equals(requestTrain.getFromStation())
+                        && item.getLastStation().getStationName().equals(requestTrain.getToStation())){
+                    trainSchedules.add(parseTrainScheduleEntityToTrainSchdeduleModel(item));
+                }
+            }
+            trainScheduleResponse = new TrainScheduleResponse(trainSchedules, null, messageResponse);
+
+        } else if (requestTrain.getDepartureTime() == null) {
 
             trainScheduleList = findSchedule(requestTrain.getToStation(), requestTrain.getFromStation(), requestTrain.getReturnTime());
             trainScheduleResponse = new TrainScheduleResponse(trainScheduleList, null, messageResponse);
@@ -74,24 +85,24 @@ public class TrainServiceImpl implements TrainService {
         List<SteamerEntity> steamerEntities = steamerRepository.findSteamerEntitiesByTrainEntity_TrainID(trainID);
         List<Steamer> steamers = new ArrayList<>();
         Train train = parseTrainEntityToTrainModel(trainEntity);
-        MessageResponse messageResponse = new MessageResponse(0,"Success");
+        MessageResponse messageResponse = new MessageResponse(0, "Success");
         for (SteamerEntity steamerEntity : steamerEntities) {
-            List<SeatEntity> seatEntities =  seatRepository.findSeatEntitiesBySteamerEntity_SteamerID(steamerEntity.getSteamerID());
+            List<SeatEntity> seatEntities = seatRepository.findSeatEntitiesBySteamerEntity_SteamerID(steamerEntity.getSteamerID());
             List<Seat> seats = new ArrayList<>();
-            for (SeatEntity seatEntity : seatEntities){
+            for (SeatEntity seatEntity : seatEntities) {
                 Seat seat = parseSeatEntityToSeatModel(seatEntity, id);
                 seats.add(seat);
             }
             Steamer steamer = parseSteamerEntityToSteamerModel(steamerEntity, id);
             steamers.add(steamer);
         }
-        TrainDetailResponse trainDetailResponse = new TrainDetailResponse(train.getTrainID(), train.getTrainName(), train.getTrainType(), steamers,messageResponse  );
+        TrainDetailResponse trainDetailResponse = new TrainDetailResponse(train.getTrainID(), train.getTrainName(), train.getTrainType(), steamers, messageResponse);
         return trainDetailResponse;
     }
 
     private List<Steamer> parseListSteamerEntitiesToListSteamerModel(List<SteamerEntity> steamerEntities, Integer trainScheduleID) {
         List<Steamer> steamerList = new ArrayList<>();
-        for (SteamerEntity item : steamerEntities){
+        for (SteamerEntity item : steamerEntities) {
             steamerList.add(parseSteamerEntityToSteamerModel(item, trainScheduleID));
         }
         return steamerList;
@@ -102,7 +113,7 @@ public class TrainServiceImpl implements TrainService {
         seat.setSeatID(seatEntity.getSeatID());
         seat.setSeatNumber(seatEntity.getSeatNumber());
         seat.setSeatType(seatEntity.getSeatType());
-        seat.setSeatStatus(seatStatusRepository.findSeatStatusEntityByTrainScheduleEntity_TrainScheduleIDAndAndSeatEntity_SeatID(trainCheduleID,seatEntity.getSeatID()).getSeatStatus());
+        seat.setSeatStatus(seatStatusRepository.findSeatStatusEntityByTrainScheduleEntity_TrainScheduleIDAndAndSeatEntity_SeatID(trainCheduleID, seatEntity.getSeatID()).getSeatStatus());
         return seat;
     }
 
@@ -143,7 +154,7 @@ public class TrainServiceImpl implements TrainService {
         steamer.setAirCondition(steamerEntity.isAirCondition());
 //        steamer.setPantryCar(steamerEntity.isPantryCar());
         steamer.setSeatList(parseListSeatEntityToListSeatModel(steamerEntity.getSeatEntities(), trainScheduleID));
-        steamer.setSteamerFare(carrageFareRepository.findCarrageFareEntityBySteamerEntity_SteamerIDAndTrainScheduleEntity_TrainScheduleID(steamerEntity.getSteamerID(),trainScheduleID).getCarrageFare());
+        steamer.setSteamerFare(carrageFareRepository.findCarrageFareEntityBySteamerEntity_SteamerIDAndTrainScheduleEntity_TrainScheduleID(steamerEntity.getSteamerID(), trainScheduleID).getCarrageFare());
         return steamer;
     }
 
