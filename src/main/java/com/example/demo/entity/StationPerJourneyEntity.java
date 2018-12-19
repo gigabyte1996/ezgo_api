@@ -30,6 +30,9 @@ public class StationPerJourneyEntity implements Serializable {
     @Column(name = "departureTime")
     private Date departureTime;
 
+    public StationPerJourneyEntity() {
+    }
+
     public Integer getStationPerJourneyID() {
         return stationPerJourneyID;
     }

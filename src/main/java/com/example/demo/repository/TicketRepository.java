@@ -13,4 +13,5 @@ import java.util.List;
 @Transactional
 public interface TicketRepository extends CrudRepository<TicketEntity, Integer> {
     List<TicketEntity> findTicketEntitiesByUserEntity_UserID(Integer userID);
+    TicketEntity findTicketEntityById(Integer ticketID);
 }

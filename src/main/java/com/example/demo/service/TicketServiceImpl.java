@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.SeatStatusEntity;
+import com.example.demo.entity.StationPerJourneyEntity;
 import com.example.demo.entity.TicketEntity;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
@@ -12,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.example.demo.entity.CustomerEntity;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -36,6 +35,12 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     private SeatStatusRepository seatStatusRepository;
 
+    @Autowired
+    private StationPerJouneyRepository stationPerJouneyRepository;
+
+    @Autowired
+    private StationRepository stationRepository;
+
     @Override
     public TicketResponse createTicket(List<TicketRequest> ticketRequestList) {
         TicketResponse ticketResponse = new TicketResponse();
@@ -46,17 +51,46 @@ public class TicketServiceImpl implements TicketService {
             ticketList.add(ticket);
         }
         ticketResponse.setTickets(ticketList);
-        if (ticketResponse.getTickets().size()!= 0){
-            MessageResponse messageResponse =new MessageResponse(0, "Success");
+        if (ticketResponse.getTickets().size() != 0) {
+            MessageResponse messageResponse = new MessageResponse(0, "Success");
             ticketResponse.setError(messageResponse);
         }
-        MessageResponse messageResponse =new MessageResponse(0, "Success");
         return ticketResponse;
     }
 
+    @Override
+    public TicketDetailResponse getTicketDetailsByTicketID(Integer ticketID) {
+        TicketEntity ticketEntity = new TicketEntity();
+        ticketEntity = ticketRepository.findTicketEntityById(ticketID);
+        MessageResponse messageResponse = null;
+        if (ticketEntity != null) {
+            messageResponse = new MessageResponse(0, "Success");
+        }
+        Ticket ticket = parseTicketEntityToTicketModel(ticketEntity);
+        List<StationPerJourneyEntity> stationPerJourneyEntities = stationPerJouneyRepository.findStationPerJourneyEntitiesByTrainScheduleEntity_TrainScheduleIDOrderByDepartureTimeAsc(ticketEntity.getTrainScheduleEntity().getTrainScheduleID());
+        List<StationPerJourney> stationPerJourneys = parseListStationPerJourneyEntityToListStationPerJourneyModel(stationPerJourneyEntities);
+        Adminstraitor adminstraitor = new Adminstraitor();
+        adminstraitor.setAdminstraitorName(ticketEntity.getTrainScheduleEntity().getAdministratorName());
+        adminstraitor.setAdminPhoneNum(ticketEntity.getTrainScheduleEntity().getAdminPhoneNumb());
+        TicketDetailResponse ticketDetailResponse = new TicketDetailResponse(ticket,  messageResponse, stationPerJourneys , adminstraitor);
+
+        return ticketDetailResponse;
+    }
+
+    private List<StationPerJourney> parseListStationPerJourneyEntityToListStationPerJourneyModel(List<StationPerJourneyEntity> stationPerJourneyEntities) {
+        List<StationPerJourney> stationPerJourneys = new ArrayList<>();
+        for (StationPerJourneyEntity item : stationPerJourneyEntities){
+            StationPerJourney stationPerJourney = new StationPerJourney();
+            stationPerJourney = parseStationPerJourneyEntityToStationPerJourneyModel(item);
+            stationPerJourneys.add(stationPerJourney);
+        }
+        return stationPerJourneys;
+    }
+
+
     private Ticket createItemTicket(TicketRequest item) {
-        TicketDetailResponse ticketDetailResponse = new TicketDetailResponse();
-        List<TicketDetailResponse> ticketDetailResponses = new ArrayList<>();
+//        TicketDetailResponse ticketDetailResponse = new TicketDetailResponse();
+//        List<TicketDetailResponse> ticketDetailResponses = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         SeatStorage seatStorage = item.getSeatStorage();
         Passenger passenger = item.getPassenger();
@@ -96,7 +130,7 @@ public class TicketServiceImpl implements TicketService {
         String passengerName = parseTicketEntityToTicketModel(ticketEntity).getPassengerName();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //        String dateCreate = sdf.format(ticketEntity.getCreateDateTime());
-        String ticketCode = userID + "-" + ticketID + "-" + fromStation + "-" + toStation + "-" + passengerName ;
+        String ticketCode = userID + "-" + ticketID + "-" + fromStation + "-" + toStation + "-" + passengerName;
         return ticketCode;
     }
 
@@ -104,14 +138,14 @@ public class TicketServiceImpl implements TicketService {
     public TicketResponse getTicketByUserID(UserRequest userRequest) {
         List<Ticket> ticketList = new ArrayList<>();
         ticketList = parseListTicketEntityToListTicketModel(ticketRepository.findTicketEntitiesByUserEntity_UserID(userRequest.getUserID()));
-        MessageResponse messageResponse = new MessageResponse(0,"Success");
+        MessageResponse messageResponse = new MessageResponse(0, "Success");
         TicketResponse ticketResponse = new TicketResponse(ticketList, messageResponse);
         return ticketResponse;
     }
 
-    private List<Ticket> parseListTicketEntityToListTicketModel(List<TicketEntity> ticketEntityList){
+    private List<Ticket> parseListTicketEntityToListTicketModel(List<TicketEntity> ticketEntityList) {
         List<Ticket> ticketList = new ArrayList<>();
-        for (TicketEntity item : ticketEntityList){
+        for (TicketEntity item : ticketEntityList) {
             Ticket ticket = new Ticket();
             ticket = parseTicketEntityToTicketModel(item);
             ticketList.add(ticket);
@@ -140,11 +174,23 @@ public class TicketServiceImpl implements TicketService {
         ticket.setTicketCode(ticketEntity.getTicketCode());
         ticket.setTrainScheduleCode(ticketEntity.getTrainScheduleEntity().getTrainScheduleCode());
         ticket.setDepartureTime(ticketEntity.getDepartureTime());
+        ticket.setTrainScheduleName(ticketEntity.getTrainScheduleEntity().getJouneyName());
         ticket.setTicketStatus(0);
 
 //        LocalDateTime dateTime = ticketEntity.getCreateDateTime();
 //        ticket.setCreateDate(dateTime);
         return ticket;
+    }
+
+    public StationPerJourney parseStationPerJourneyEntityToStationPerJourneyModel(StationPerJourneyEntity stationPerJourneyEntity){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        StationPerJourney stationPerJourney = new StationPerJourney();
+        stationPerJourney.setStationPerJourneyID(stationPerJourneyEntity.getStationPerJourneyID());
+        stationPerJourney.setTrainScheduleID(stationPerJourneyEntity.getTrainScheduleEntity().getTrainScheduleID());
+        stationPerJourney.setStation(stationPerJourneyEntity.stationEntity.getStationName());
+        stationPerJourney.setArrivalTime(sdf.format(stationPerJourneyEntity.getArrivalTime()));
+        stationPerJourney.setDepartureTime(sdf.format(stationPerJourneyEntity.getDepartureTime()));
+        return stationPerJourney;
     }
 
 }

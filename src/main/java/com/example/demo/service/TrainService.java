@@ -1,15 +1,12 @@
 package com.example.demo.service;
 
 
-import com.example.demo.model.FilterRequest;
-import com.example.demo.model.SearchTrain;
-import com.example.demo.model.TicketRequest;
-import com.example.demo.model.TrainRequest;
+import com.example.demo.model.*;
 import com.example.demo.service.response.SearchTrainResponse;
 import com.example.demo.service.response.TrainDetailResponse;
 import com.example.demo.service.response.TrainScheduleResponse;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface TrainService {
     TrainScheduleResponse searchTrain(TrainRequest requestTrain);
@@ -20,7 +17,9 @@ public interface TrainService {
 
     TrainScheduleResponse getTrainByFilter(FilterRequest filterRequest);
 
-    SearchTrainResponse searchTrainByName(SearchTrain searchTrain);
+    SearchTrainResponse searchTrainByName(Search searchTrain);
+
+    TrainScheduleResponse sortByArrivaltime(List<TrainSchedule> trainSchedules);
 
 //    TicketRequest test();
 }

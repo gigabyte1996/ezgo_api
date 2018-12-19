@@ -1,10 +1,7 @@
 package com.example.demo.service;
 
 
-import com.example.demo.entity.SeatEntity;
-import com.example.demo.entity.SteamerEntity;
-import com.example.demo.entity.TrainEntity;
-import com.example.demo.entity.TrainScheduleEntity;
+import com.example.demo.entity.*;
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.response.MessageResponse;
@@ -40,6 +37,9 @@ public class TrainServiceImpl implements TrainService {
     @Autowired
     private CarrageFareRepository carrageFareRepository;
 
+    @Autowired
+    private StationPerJouneyRepository stationPerJouneyRepository;
+
     @Override
     public TrainScheduleResponse searchTrain(TrainRequest requestTrain) {
         MessageResponse messageResponse = new MessageResponse(0, "Success");
@@ -50,12 +50,13 @@ public class TrainServiceImpl implements TrainService {
 
             List<TrainScheduleEntity> trainScheduleEntities = trainScheduleRepository.findAll();
             List<TrainSchedule> trainSchedules = new ArrayList<>();
-            for (TrainScheduleEntity item : trainScheduleEntities){
-                if (item.getFirstStation().getStationName().equals(requestTrain.getFromStation())
-                        && item.getLastStation().getStationName().equals(requestTrain.getToStation())){
-                    trainSchedules.add(parseTrainScheduleEntityToTrainSchdeduleModel(item));
-                }
-            }
+            trainSchedules = parseListTrainScheduleEntityToListTrainSchdeduleModel(trainScheduleEntities);
+//            for (TrainScheduleEntity item : trainScheduleEntities) {
+//                if (item.getFirstStation().getStationName().equals(requestTrain.getFromStation())
+//                        && item.getLastStation().getStationName().equals(requestTrain.getToStation())) {
+//                    trainSchedules.add(parseTrainScheduleEntityToTrainSchdeduleModel(item));
+//                }
+//            }
             trainScheduleResponse = new TrainScheduleResponse(trainSchedules, null, messageResponse);
 
         } else if (requestTrain.getDepartureTime() == null) {
@@ -138,12 +139,20 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public SearchTrainResponse searchTrainByName(SearchTrain searchTrain) {
-        TrainScheduleEntity trainScheduleEntity = new TrainScheduleEntity();
-        trainScheduleEntity = trainScheduleRepository.findTrainScheduleEntityByTrainScheduleCode(searchTrain.getTrainScheduleCode());
-        TrainSchedule trainSchedule = parseTrainScheduleEntityToTrainSchdeduleModel(trainScheduleEntity);
-        MessageResponse messageResponse = new MessageResponse(0, "Success");
-        return new SearchTrainResponse(trainSchedule, messageResponse);
+    public SearchTrainResponse searchTrainByName(Search searchTrain) {
+//        TrainScheduleEntity trainScheduleEntity = new TrainScheduleEntity();
+//        trainScheduleEntity = trainScheduleRepository.findTrainScheduleEntityByTrainScheduleCode(searchTrain.getTrainScheduleCode());
+//        TrainSchedule trainSchedule = parseTrainScheduleEntityToTrainSchdeduleModel(trainScheduleEntity);
+//        MessageResponse messageResponse = new MessageResponse(0, "Success");
+//        return new SearchTrainResponse(trainSchedule, messageResponse);
+
+        return null;
+    }
+
+    @Override
+    public TrainScheduleResponse sortByArrivaltime(List<TrainSchedule> trainSchedules) {
+
+        return null;
     }
 
     private Steamer parseSteamerEntityToSteamerModel(SteamerEntity steamerEntity, Integer trainScheduleID) {
@@ -177,8 +186,19 @@ public class TrainServiceImpl implements TrainService {
         return train;
     }
 
-    private TrainSchedule parseTrainScheduleEntityToTrainSchdeduleModel(TrainScheduleEntity trainScheduleEntity) {
+    public List<TrainSchedule> parseListTrainScheduleEntityToListTrainSchdeduleModel(List<TrainScheduleEntity> trainScheduleEntityList){
+        List<TrainSchedule> trainScheduleList = new ArrayList<>();
+        for (TrainScheduleEntity item : trainScheduleEntityList){
+            TrainSchedule trainSchedule = new TrainSchedule();
+            trainSchedule = parseTrainScheduleEntityToTrainSchdeduleModel(item);
+            trainScheduleList.add(trainSchedule);
+        }
+        return trainScheduleList;
+    }
+
+    public TrainSchedule parseTrainScheduleEntityToTrainSchdeduleModel(TrainScheduleEntity trainScheduleEntity) {
         TrainSchedule trainSchedule = new TrainSchedule();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         trainSchedule.setTrainScheduleID(trainScheduleEntity.getTrainScheduleID());
         trainSchedule.setTrainName(trainScheduleEntity.getTrainEntity().getTrainName());
         trainSchedule.setFirstStation(trainScheduleEntity.getFirstStation().getStationName());
@@ -188,8 +208,30 @@ public class TrainServiceImpl implements TrainService {
         trainSchedule.setArrivalTime(trainScheduleEntity.getArrivalTime());
         trainSchedule.setTrainID(trainScheduleEntity.getTrainEntity().getTrainID());
         trainSchedule.setTrainScheduleCode(trainScheduleEntity.getTrainScheduleCode());
+        trainSchedule.setAdministratorName(trainScheduleEntity.getAdministratorName());
+        trainSchedule.setAdminPhoneNumb(trainScheduleEntity.getAdminPhoneNumb());
+        trainSchedule.setStationPerJourneys(parseListStationPerJourneyEntityToListStationPerJourneyModel(stationPerJouneyRepository.findStationPerJourneyEntitiesByTrainScheduleEntity_TrainScheduleIDOrderByDepartureTimeAsc(trainScheduleEntity.getTrainScheduleID())));
+
         return trainSchedule;
     }
 
+    private List<StationPerJourney> parseListStationPerJourneyEntityToListStationPerJourneyModel(List<StationPerJourneyEntity> stationPerJourneyEntities) {
+        List<StationPerJourney> stationPerJourneys = new ArrayList<>();
+        for (StationPerJourneyEntity item : stationPerJourneyEntities) {
+            StationPerJourney stationPerJourney = new StationPerJourney();
+            stationPerJourney = parseStationPerJourneyEntityToStationPerJourneyModel(item);
+            stationPerJourneys.add(stationPerJourney);
+        }
+        return stationPerJourneys;
+    }
 
+    private StationPerJourney parseStationPerJourneyEntityToStationPerJourneyModel(StationPerJourneyEntity stationPerJourneyEntity) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        StationPerJourney stationPerJourney = new StationPerJourney();
+        stationPerJourney.setTrainScheduleID(stationPerJourneyEntity.getTrainScheduleEntity().getTrainScheduleID());
+        stationPerJourney.setStation(stationPerJourneyEntity.stationEntity.getStationName());
+        stationPerJourney.setArrivalTime(sdf.format(stationPerJourneyEntity.getArrivalTime()));
+        stationPerJourney.setDepartureTime(sdf.format(stationPerJourneyEntity.getDepartureTime()));
+        return stationPerJourney;
+    }
 }

@@ -1,17 +1,44 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
+import java.util.List;
 
 public class TrainSchedule {
     private Integer trainScheduleID;
     private String jouneyName;
     private String trainName;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone="Asia/Ho_Chi_Minh")
     private Date departureTime;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone="Asia/Ho_Chi_Minh")
     private Date arrivalTime;
+
     private String firstStation;
     private String lastStation;
     private Integer trainID;
     private String trainScheduleCode;
+    private List<StationPerJourney> stationPerJourneys;
+    private String AdministratorName;
+    private String AdminPhoneNumb;
+
+    public String getAdministratorName() {
+        return AdministratorName;
+    }
+
+    public void setAdministratorName(String administratorName) {
+        AdministratorName = administratorName;
+    }
+
+    public String getAdminPhoneNumb() {
+        return AdminPhoneNumb;
+    }
+
+    public void setAdminPhoneNumb(String adminPhoneNumb) {
+        AdminPhoneNumb = adminPhoneNumb;
+    }
 
     public Integer getTrainScheduleID() {
         return trainScheduleID;
@@ -83,5 +110,13 @@ public class TrainSchedule {
 
     public void setTrainScheduleCode(String trainScheduleCode) {
         this.trainScheduleCode = trainScheduleCode;
+    }
+
+    public List<StationPerJourney> getStationPerJourneys() {
+        return stationPerJourneys;
+    }
+
+    public void setStationPerJourneys(List<StationPerJourney> stationPerJourneys) {
+        this.stationPerJourneys = stationPerJourneys;
     }
 }

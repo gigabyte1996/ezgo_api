@@ -29,6 +29,14 @@ public class TrainScheduleEntity {
     private Date arrivalTime;
 
     @Basic
+    @Column(name = "AdministratorName")
+    private String AdministratorName;
+
+    @Basic
+    @Column(name = "AdminPhoneNumb")
+    private String AdminPhoneNumb;
+
+    @Basic
     @Column(name = "TrainScheduleCode")
     private String trainScheduleCode;
 
@@ -39,7 +47,6 @@ public class TrainScheduleEntity {
     @ManyToOne
     @JoinColumn(name = "LastStationID", nullable = true)
     public StationEntity lastStation;
-
 
     @ManyToOne
     @JoinColumn(name = "TrainID", nullable = true)
@@ -58,7 +65,24 @@ public class TrainScheduleEntity {
     List<StationPerJourneyEntity> stationPerJourneyEntities;
 
 
+
     public TrainScheduleEntity() {
+    }
+
+    public String getAdministratorName() {
+        return AdministratorName;
+    }
+
+    public void setAdministratorName(String administratorName) {
+        AdministratorName = administratorName;
+    }
+
+    public String getAdminPhoneNumb() {
+        return AdminPhoneNumb;
+    }
+
+    public void setAdminPhoneNumb(String adminPhoneNumb) {
+        AdminPhoneNumb = adminPhoneNumb;
     }
 
     public Integer getTrainScheduleID() {
@@ -165,11 +189,13 @@ public class TrainScheduleEntity {
         this.trainScheduleCode = trainScheduleCode;
     }
 
-    public TrainScheduleEntity(int scheduleTyprCode, String jouneyName, Date departureTime, Date arrivalTime, String trainScheduleCode, StationEntity firstStation, StationEntity lastStation, TrainEntity trainEntity, List<TicketEntity> ticketEntities, List<SeatStatusEntity> seatStatusEntities, List<FareScheduleEntity> fareScheduleEntities, List<StationPerJourneyEntity> stationPerJourneyEntities) {
+    public TrainScheduleEntity(int scheduleTyprCode, String jouneyName, Date departureTime, Date arrivalTime, String administratorName, String adminPhoneNumb, String trainScheduleCode, StationEntity firstStation, StationEntity lastStation, TrainEntity trainEntity, List<TicketEntity> ticketEntities, List<SeatStatusEntity> seatStatusEntities, List<FareScheduleEntity> fareScheduleEntities, List<StationPerJourneyEntity> stationPerJourneyEntities) {
         this.scheduleTyprCode = scheduleTyprCode;
         this.jouneyName = jouneyName;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        AdministratorName = administratorName;
+        AdminPhoneNumb = adminPhoneNumb;
         this.trainScheduleCode = trainScheduleCode;
         this.firstStation = firstStation;
         this.lastStation = lastStation;

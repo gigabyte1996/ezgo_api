@@ -39,9 +39,14 @@ public class TrainController {
     }
 
     @PostMapping
-    public ResponseEntity searchTrainByName(@RequestBody SearchTrain searchTrain){
+    public ResponseEntity searchTrainByName(@RequestBody Search searchTrain){
         return new ResponseEntity<>(trainService.searchTrainByName(searchTrain), HttpStatus.OK);
     }
+
+//    @PostMapping
+//    public  ResponseEntity sortByArrivaltime(@RequestBody List<TrainSchedule> trainSchedules ){
+//        return new ResponseEntity<>(trainService.sortByArrivaltime(trainSchedules), HttpStatus.OK);
+//    }
 
     @GetMapping("train/test")
     public ResponseEntity test(){

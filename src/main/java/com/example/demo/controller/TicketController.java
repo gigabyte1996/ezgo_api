@@ -29,4 +29,9 @@ public class TicketController {
         return new ResponseEntity<>(ticketService.getTicketByUserID(userRequest), HttpStatus.OK);
     }
 
+    @PostMapping("ticket/details")
+    public ResponseEntity getTicketDetailsByTicketID(@RequestBody Integer ticketID){
+        return new ResponseEntity<>(ticketService.getTicketDetailsByTicketID(ticketID), HttpStatus.OK);
+    }
+
 }
