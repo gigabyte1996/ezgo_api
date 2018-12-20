@@ -20,21 +20,15 @@ public class UserEntity {
     @Column(name = "password")
     private String password;
 
-    @Basic
-    @Column(name = "activated")
-    private String activated;
 
     @Basic
-    @Column(name = "statusID")
-    private String statusID;
+    @Column(name = "role")
+    private String role;
 
     @Basic
-    @Column(name = "firstName")
-    private String firstName;
+    @Column(name = "fullName")
+    private String fullName;
 
-    @Basic
-    @Column(name = "lastName")
-    private String lastName;
 
     @Basic
     @Column(name = "email")
@@ -54,7 +48,7 @@ public class UserEntity {
 
     @Basic
     @Column(name = "gender")
-    private int gender;
+    private Boolean gender;
 
     @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
     private List<TicketEntity> ticketEntities;
@@ -65,6 +59,14 @@ public class UserEntity {
 //    @OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL)
 //    private List<CustomerEntity> customerEntities;
 
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     public Integer getUserID() {
         return userID;
@@ -90,36 +92,13 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getActivated() {
-        return activated;
+
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setActivated(String activated) {
-        this.activated = activated;
-    }
-
-    public String getStatusID() {
-        return statusID;
-    }
-
-    public void setStatusID(String statusID) {
-        this.statusID = statusID;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
@@ -154,11 +133,11 @@ public class UserEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public int getGender() {
+    public Boolean getGender() {
         return gender;
     }
 
-    public void setGender(int gender) {
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 

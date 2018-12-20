@@ -1,33 +1,31 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class User {
     private Integer UserID;
     private String username;
     private String password;
-    private  String mail;
     private String fullname;
     private Boolean gender;
-    private String activated;
-    private String statusID;
     private String email;
     private String avaImageURL;
     private String phoneNumber;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone="Asia/Ho_Chi_Minh")
     private Date dateOfBirth;
 
     public User() {
     }
 
-    public User(Integer userID, String username, String password, String mail, String fullname, Boolean gender, String activated, String statusID, String firstName, String lastName, String email, String avaImageURL, String phoneNumber, Date dateOfBirth) {
+    public User(Integer userID, String username, String password, String fullname, Boolean gender, String email, String avaImageURL, String phoneNumber, Date dateOfBirth) {
         UserID = userID;
         this.username = username;
         this.password = password;
-        this.mail = mail;
         this.fullname = fullname;
         this.gender = gender;
-        this.activated = activated;
-        this.statusID = statusID;
         this.email = email;
         this.avaImageURL = avaImageURL;
         this.phoneNumber = phoneNumber;
@@ -58,14 +56,6 @@ public class User {
         this.password = passwprd;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
     public String getFullname() {
         return fullname;
     }
@@ -80,22 +70,6 @@ public class User {
 
     public void setGender(Boolean gender) {
         this.gender = gender;
-    }
-
-    public String getActivated() {
-        return activated;
-    }
-
-    public void setActivated(String activated) {
-        this.activated = activated;
-    }
-
-    public String getStatusID() {
-        return statusID;
-    }
-
-    public void setStatusID(String statusID) {
-        this.statusID = statusID;
     }
 
     public String getEmail() {
@@ -128,5 +102,13 @@ public class User {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
