@@ -9,9 +9,9 @@ import com.example.demo.service.response.TicketResponse;
 import java.util.List;
 
 public interface TicketService {
-    TicketResponse createTicket(List<TicketRequest> ticketRequestList);
+    TicketResponse createTicket(String username,List<TicketRequest> ticketRequestList);
 
-    TicketResponse getTicketByUserID(UserRequest userRequest);
+    TicketResponse getTicketByUserID(String username);
 
-    TicketDetailResponse getTicketDetailsByTicketID(Integer ticketID);
+    TicketDetailResponse getTicketDetailsByTicketID(String username, Integer ticketID);
 }

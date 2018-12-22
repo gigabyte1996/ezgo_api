@@ -6,5 +6,5 @@ import com.example.demo.service.response.TrainScheduleResponse;
 
 
 public interface SearchService {
-    TrainScheduleResponse searchTrainScheduleByCode(Search search);
+    TrainScheduleResponse searchTrainScheduleByCode(String username, Search search);
 }

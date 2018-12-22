@@ -80,7 +80,7 @@ public class TrainServiceImpl implements TrainService {
 
 
     @Override
-    public TrainDetailResponse getTrainDiagrambyTrainScheduleId(Integer id) {
+    public TrainDetailResponse getTrainDiagrambyTrainScheduleId(String username, Integer id) {
         Integer trainID = trainScheduleRepository.findTrainScheduleEntityByTrainScheduleID(id).getTrainEntity().getTrainID();
         TrainEntity trainEntity = trainRepository.findTrainEntityByTrainID(trainID);
         List<SteamerEntity> steamerEntities = steamerRepository.findSteamerEntitiesByTrainEntity_TrainID(trainID);
@@ -133,13 +133,13 @@ public class TrainServiceImpl implements TrainService {
     }
 
     @Override
-    public TrainScheduleResponse getTrainByFilter(FilterRequest filterRequest) {
+    public TrainScheduleResponse getTrainByFilter(String username, FilterRequest filterRequest) {
         List<TrainScheduleEntity> trainScheduleEntities = trainScheduleRepository.findAll();
         return null;
     }
 
     @Override
-    public SearchTrainResponse searchTrainByName(Search searchTrain) {
+    public SearchTrainResponse searchTrainByName(String username, Search searchTrain) {
 //        TrainScheduleEntity trainScheduleEntity = new TrainScheduleEntity();
 //        trainScheduleEntity = trainScheduleRepository.findTrainScheduleEntityByTrainScheduleCode(searchTrain.getTrainScheduleCode());
 //        TrainSchedule trainSchedule = parseTrainScheduleEntityToTrainSchdeduleModel(trainScheduleEntity);

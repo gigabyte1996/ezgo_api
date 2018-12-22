@@ -6,11 +6,15 @@ import com.example.demo.service.TrainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import java.util.ArrayList;
 import java.util.List;
 
+@PermitAll
 @RestController
 @RequestMapping("/api")
 public class TrainController {
@@ -18,10 +22,12 @@ public class TrainController {
     @Autowired
     private TrainService trainService;
 
-    @PostMapping("train/search")
-    public ResponseEntity searchTrain(@RequestBody TrainRequest requestTrain){
-        return new ResponseEntity<>(trainService.searchTrain(requestTrain), HttpStatus.OK);
-    }
+//    @PostMapping("train/search")
+//    public ResponseEntity searchTrain(@RequestBody TrainRequest requestTrain){
+////        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+////        String currentUserName = authentication.getName();
+//        return new ResponseEntity<>(trainService.searchTrain(requestTrain), HttpStatus.OK);
+//    }
 
 //    @PostMapping("train/diagram")
 //    public ResponseEntity getTrainDiagrambyTrainId(@RequestBody ArrayList<Integer> trainIDs){
@@ -30,17 +36,23 @@ public class TrainController {
 
     @PostMapping("train/filter")
     public ResponseEntity getTrainByFilter(@RequestBody FilterRequest filterRequest){
-        return new ResponseEntity<>(trainService.getTrainByFilter(filterRequest), HttpStatus.OK );
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return new ResponseEntity<>(trainService.getTrainByFilter(currentUserName, filterRequest), HttpStatus.OK );
 
     }
     @PostMapping("train/diagram")
     public ResponseEntity getTrainDiagrambyTrainScheduleId(@RequestBody Integer trainScheduleID){
-        return new ResponseEntity<>(trainService.getTrainDiagrambyTrainScheduleId(trainScheduleID), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return new ResponseEntity<>(trainService.getTrainDiagrambyTrainScheduleId(currentUserName, trainScheduleID), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity searchTrainByName(@RequestBody Search searchTrain){
-        return new ResponseEntity<>(trainService.searchTrainByName(searchTrain), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return new ResponseEntity<>(trainService.searchTrainByName(currentUserName, searchTrain), HttpStatus.OK);
     }
 
 //    @PostMapping

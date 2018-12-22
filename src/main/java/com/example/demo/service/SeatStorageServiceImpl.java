@@ -33,7 +33,7 @@ public class SeatStorageServiceImpl implements SeatStorageService {
 
 
     @Override
-    public SeatStorageResponse addSeatStorage(SeatStorage seatStorage) {
+    public SeatStorageResponse addSeatStorage(String username, SeatStorage seatStorage) {
         SeatStorageEntity seatStorageEntity = new SeatStorageEntity();
         SeatStatusEntity seatStatusEntity = new SeatStatusEntity();
 
@@ -67,7 +67,7 @@ public class SeatStorageServiceImpl implements SeatStorageService {
     }
 
     @Override
-    public SeatStorageResponse deleteSeatStorage(SeatStorageDeleteRequest seatStorageDeleteRequest) {
+    public SeatStorageResponse deleteSeatStorage(String username,SeatStorageDeleteRequest seatStorageDeleteRequest) {
         SeatStatusEntity seatStatusEntity = new SeatStatusEntity();
         List<SeatStorage> seatStorageList = new ArrayList<>();
         SeatStorageEntity seatStorageEntity = new SeatStorageEntity();
@@ -85,10 +85,10 @@ public class SeatStorageServiceImpl implements SeatStorageService {
     }
 
     @Override
-    public SeatStorageResponse getSeatStorageByUserID(Integer userID) {
+    public SeatStorageResponse getSeatStorageByUserID(String username) {
         List<SeatStorage> seatStorageList = new ArrayList<>();
         MessageResponse messageResponse = new MessageResponse();
-        List<SeatStorageEntity> seatStorageEntities = seatStorageRepository.findSeatStorageEntitiesByUserEntity_UserID(userID);
+        List<SeatStorageEntity> seatStorageEntities = seatStorageRepository.findSeatStorageEntitiesByUserEntity_UserID(Integer.parseInt(username));
         if (seatStorageEntities != null) {
             seatStorageList = parseListSeatStorageEntityToListSeatStogare(seatStorageEntities);
             messageResponse = new MessageResponse(0, "success");

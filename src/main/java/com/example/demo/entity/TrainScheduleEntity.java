@@ -58,8 +58,8 @@ public class TrainScheduleEntity {
     @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
     List<SeatStatusEntity> seatStatusEntities;
 
-    @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
-    List<FareScheduleEntity> fareScheduleEntities;
+//    @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
+//    List<FareScheduleEntity> fareScheduleEntities;
 
     @OneToMany(mappedBy = "trainScheduleEntity", cascade = CascadeType.ALL)
     List<StationPerJourneyEntity> stationPerJourneyEntities;
@@ -165,13 +165,13 @@ public class TrainScheduleEntity {
         this.seatStatusEntities = seatStatusEntities;
     }
 
-    public List<FareScheduleEntity> getFareScheduleEntities() {
-        return fareScheduleEntities;
-    }
-
-    public void setFareScheduleEntities(List<FareScheduleEntity> fareScheduleEntities) {
-        this.fareScheduleEntities = fareScheduleEntities;
-    }
+//    public List<FareScheduleEntity> getFareScheduleEntities() {
+//        return fareScheduleEntities;
+//    }
+//
+//    public void setFareScheduleEntities(List<FareScheduleEntity> fareScheduleEntities) {
+//        this.fareScheduleEntities = fareScheduleEntities;
+//    }
 
     public List<StationPerJourneyEntity> getStationPerJourneyEntities() {
         return stationPerJourneyEntities;
@@ -189,20 +189,5 @@ public class TrainScheduleEntity {
         this.trainScheduleCode = trainScheduleCode;
     }
 
-    public TrainScheduleEntity(int scheduleTyprCode, String jouneyName, Date departureTime, Date arrivalTime, String administratorName, String adminPhoneNumb, String trainScheduleCode, StationEntity firstStation, StationEntity lastStation, TrainEntity trainEntity, List<TicketEntity> ticketEntities, List<SeatStatusEntity> seatStatusEntities, List<FareScheduleEntity> fareScheduleEntities, List<StationPerJourneyEntity> stationPerJourneyEntities) {
-        this.scheduleTyprCode = scheduleTyprCode;
-        this.jouneyName = jouneyName;
-        this.departureTime = departureTime;
-        this.arrivalTime = arrivalTime;
-        AdministratorName = administratorName;
-        AdminPhoneNumb = adminPhoneNumb;
-        this.trainScheduleCode = trainScheduleCode;
-        this.firstStation = firstStation;
-        this.lastStation = lastStation;
-        this.trainEntity = trainEntity;
-        this.ticketEntities = ticketEntities;
-        this.seatStatusEntities = seatStatusEntities;
-        this.fareScheduleEntities = fareScheduleEntities;
-        this.stationPerJourneyEntities = stationPerJourneyEntities;
-    }
+
 }

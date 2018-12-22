@@ -7,7 +7,7 @@ import com.example.demo.service.response.SeatStorageResponse;
 import java.util.List;
 
 public interface SeatStorageService {
-    SeatStorageResponse addSeatStorage(SeatStorage seatStorage);
-    SeatStorageResponse deleteSeatStorage(SeatStorageDeleteRequest seatStorageDeleteRequest);
-    SeatStorageResponse getSeatStorageByUserID(Integer userID);
+    SeatStorageResponse addSeatStorage(String username,SeatStorage seatStorage);
+    SeatStorageResponse deleteSeatStorage(String username,SeatStorageDeleteRequest seatStorageDeleteRequest);
+    SeatStorageResponse getSeatStorageByUserID(String username);
 }

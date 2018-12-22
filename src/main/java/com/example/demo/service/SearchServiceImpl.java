@@ -31,7 +31,7 @@ public class SearchServiceImpl implements SearchService {
 
 
     @Override
-    public TrainScheduleResponse searchTrainScheduleByCode(Search search) {
+    public TrainScheduleResponse searchTrainScheduleByCode(String username, Search search) {
         TrainScheduleResponse TrainScheduleResponse = new TrainScheduleResponse();
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 

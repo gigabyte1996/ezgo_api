@@ -13,11 +13,11 @@ public interface TrainService {
 
 //    TrainDetailResponse getTrainDiagrambyTrainId( ArrayList<Integer> trainIDs);
 
-    TrainDetailResponse getTrainDiagrambyTrainScheduleId( Integer id);
+    TrainDetailResponse getTrainDiagrambyTrainScheduleId(String username, Integer id);
 
-    TrainScheduleResponse getTrainByFilter(FilterRequest filterRequest);
+    TrainScheduleResponse getTrainByFilter(String username, FilterRequest filterRequest);
 
-    SearchTrainResponse searchTrainByName(Search searchTrain);
+    SearchTrainResponse searchTrainByName(String username, Search searchTrain);
 
     TrainScheduleResponse sortByArrivaltime(List<TrainSchedule> trainSchedules);
 

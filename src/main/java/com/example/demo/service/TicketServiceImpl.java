@@ -42,7 +42,7 @@ public class TicketServiceImpl implements TicketService {
     private StationRepository stationRepository;
 
     @Override
-    public TicketResponse createTicket(List<TicketRequest> ticketRequestList) {
+    public TicketResponse createTicket(String username, List<TicketRequest> ticketRequestList) {
         TicketResponse ticketResponse = new TicketResponse();
         List<Ticket> ticketList = new ArrayList<>();
         for (TicketRequest item : ticketRequestList) {
@@ -59,7 +59,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketDetailResponse getTicketDetailsByTicketID(Integer ticketID) {
+    public TicketDetailResponse getTicketDetailsByTicketID(String username, Integer ticketID) {
         TicketEntity ticketEntity = new TicketEntity();
         ticketEntity = ticketRepository.findTicketEntityById(ticketID);
         MessageResponse messageResponse = null;
@@ -135,9 +135,9 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketResponse getTicketByUserID(UserRequest userRequest) {
+    public TicketResponse getTicketByUserID(String username) {
         List<Ticket> ticketList = new ArrayList<>();
-        ticketList = parseListTicketEntityToListTicketModel(ticketRepository.findTicketEntitiesByUserEntity_UserID(userRequest.getUserID()));
+        ticketList = parseListTicketEntityToListTicketModel(ticketRepository.findTicketEntitiesByUserEntity_UserID(Integer.parseInt(username)));
         MessageResponse messageResponse = new MessageResponse(0, "Success");
         TicketResponse ticketResponse = new TicketResponse(ticketList, messageResponse);
         return ticketResponse;

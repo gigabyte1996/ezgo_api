@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -46,7 +47,6 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 	 *
 	 * Purpose: Handler all request to API need to access token or announce error.
 	 */
-	@Bean
 	public JwtAuthenticationTokenFilter authenticationTokenFilter() {
 		JwtAuthenticationTokenFilter filter = new JwtAuthenticationTokenFilter();
 		/**
@@ -70,7 +70,14 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
     }
+
+	@Override
+	public void configure(WebSecurity web) throws Exception {
+		web.ignoring().antMatchers("/api/train/search" );
+		web.ignoring().antMatchers("/api/station");
+	}
 }

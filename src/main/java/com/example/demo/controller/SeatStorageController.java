@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,17 +22,23 @@ public class SeatStorageController {
 
     @PostMapping("seatStorage/add")
     public ResponseEntity addSeatStorage(@RequestBody SeatStorage seatStorage){
-        return new ResponseEntity<>(seatStorageService.addSeatStorage(seatStorage), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return new ResponseEntity<>(seatStorageService.addSeatStorage(currentUserName, seatStorage), HttpStatus.OK);
     }
 
     @DeleteMapping("seatStorage")
     public ResponseEntity deleteSeatStorage(@RequestBody SeatStorageDeleteRequest seatStorageDeleteRequest){
-        return new ResponseEntity<>(seatStorageService.deleteSeatStorage(seatStorageDeleteRequest), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return new ResponseEntity<>(seatStorageService.deleteSeatStorage(currentUserName, seatStorageDeleteRequest), HttpStatus.OK);
     }
 
-    @PostMapping("seatStorage")
-    public ResponseEntity getSeatStorage(@RequestBody Integer userID){
-        return new ResponseEntity<>(seatStorageService.getSeatStorageByUserID(userID), HttpStatus.OK);
+    @GetMapping("seatStorage")
+    public ResponseEntity getSeatStorage(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = authentication.getName();
+        return new ResponseEntity<>(seatStorageService.getSeatStorageByUserID( currentUserName), HttpStatus.OK);
     }
 
 }
